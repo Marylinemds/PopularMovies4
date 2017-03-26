@@ -16,5 +16,11 @@
             android:title="sort by rating"
             app:showAsAction="never"/>
 
+        <item
+            android:id="@+id/favorites"
+            android:orderInCategory="3"
+            android:title="Favorites"
+            app:showAsAction="never"/>
+
 
 </menu>

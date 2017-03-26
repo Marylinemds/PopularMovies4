@@ -14,7 +14,7 @@ import android.support.annotation.Nullable;
 
 public class MoviesContentProvider extends ContentProvider {
 
-    private MoviesDbHelper mMoviesDbHelper;
+    public MoviesDbHelper mMoviesDbHelper;
 
     @Override
     public boolean onCreate() {

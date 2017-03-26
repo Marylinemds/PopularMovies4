@@ -4,6 +4,7 @@ package com.example.android.popularmovies1;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -36,6 +37,8 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
     MovieAdapter movieAdapter;
     RecyclerView mMoviesList;
     public int mNumberItems;
+
+    private SQLiteDatabase mDb;
 
     List<Movie> movies = new ArrayList<>();
 
