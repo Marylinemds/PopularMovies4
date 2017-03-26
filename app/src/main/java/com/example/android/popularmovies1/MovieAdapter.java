@@ -1,6 +1,7 @@
 package com.example.android.popularmovies1;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,12 +23,14 @@ import static com.example.android.popularmovies1.R.layout.movieitem;
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ImageViewHolder>{
 
     final private ListItemClickHandler mOnClickHandler;
+    public Cursor mCursor;
 
 
     List<Movie> movies;
 
-    public MovieAdapter(ListItemClickHandler listener) {
+    public MovieAdapter(ListItemClickHandler listener, Cursor cursor) {
     mOnClickHandler = listener;
+    this.mCursor = cursor;
     }
 
     public List<Movie> getMovies() {
@@ -97,6 +100,19 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ImageViewHol
 
     public interface ListItemClickHandler{
         void onClick(int clickedItemIndex);
+    }
+
+    public void swapCursor(Cursor newCursor) {
+        // COMPLETED (16) Inside, check if the current cursor is not null, and close it if so
+        // Always close the previous mCursor first
+        if (mCursor != null) mCursor.close();
+        // COMPLETED (17) Update the local mCursor to be equal to  newCursor
+        mCursor = newCursor;
+        // COMPLETED (18) Check if the newCursor is not null, and call this.notifyDataSetChanged() if so
+        if (newCursor != null) {
+            // Force the RecyclerView to refresh
+            this.notifyDataSetChanged();
+        }
     }
 
 
