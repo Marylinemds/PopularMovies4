@@ -28,9 +28,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ImageViewHol
 
     List<Movie> movies;
 
-    public MovieAdapter(ListItemClickHandler listener, Cursor cursor) {
+    public MovieAdapter(ListItemClickHandler listener) {
     mOnClickHandler = listener;
-    this.mCursor = cursor;
     }
 
     public List<Movie> getMovies() {

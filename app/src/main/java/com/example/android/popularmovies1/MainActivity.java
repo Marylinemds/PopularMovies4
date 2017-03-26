@@ -78,216 +78,10 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
             mDb = dbHelper.getWritableDatabase();
         }
 
-        //Cursor cursor = getAllFavorites();
-          Cursor cursor = new Cursor() {
-              @Override
-              public int getCount() {
-                  return 0;
-              }
 
-              @Override
-              public int getPosition() {
-                  return 0;
-              }
-
-              @Override
-              public boolean move(int i) {
-                  return false;
-              }
-
-              @Override
-              public boolean moveToPosition(int i) {
-                  return false;
-              }
-
-              @Override
-              public boolean moveToFirst() {
-                  return false;
-              }
-
-              @Override
-              public boolean moveToLast() {
-                  return false;
-              }
-
-              @Override
-              public boolean moveToNext() {
-                  return false;
-              }
-
-              @Override
-              public boolean moveToPrevious() {
-                  return false;
-              }
-
-              @Override
-              public boolean isFirst() {
-                  return false;
-              }
-
-              @Override
-              public boolean isLast() {
-                  return false;
-              }
-
-              @Override
-              public boolean isBeforeFirst() {
-                  return false;
-              }
-
-              @Override
-              public boolean isAfterLast() {
-                  return false;
-              }
-
-              @Override
-              public int getColumnIndex(String s) {
-                  return 0;
-              }
-
-              @Override
-              public int getColumnIndexOrThrow(String s) throws IllegalArgumentException {
-                  return 0;
-              }
-
-              @Override
-              public String getColumnName(int i) {
-                  return null;
-              }
-
-              @Override
-              public String[] getColumnNames() {
-                  return new String[0];
-              }
-
-              @Override
-              public int getColumnCount() {
-                  return 0;
-              }
-
-              @Override
-              public byte[] getBlob(int i) {
-                  return new byte[0];
-              }
-
-              @Override
-              public String getString(int i) {
-                  return null;
-              }
-
-              @Override
-              public void copyStringToBuffer(int i, CharArrayBuffer charArrayBuffer) {
-
-              }
-
-              @Override
-              public short getShort(int i) {
-                  return 0;
-              }
-
-              @Override
-              public int getInt(int i) {
-                  return 0;
-              }
-
-              @Override
-              public long getLong(int i) {
-                  return 0;
-              }
-
-              @Override
-              public float getFloat(int i) {
-                  return 0;
-              }
-
-              @Override
-              public double getDouble(int i) {
-                  return 0;
-              }
-
-              @Override
-              public int getType(int i) {
-                  return 0;
-              }
-
-              @Override
-              public boolean isNull(int i) {
-                  return false;
-              }
-
-              @Override
-              public void deactivate() {
-
-              }
-
-              @Override
-              public boolean requery() {
-                  return false;
-              }
-
-              @Override
-              public void close() {
-
-              }
-
-              @Override
-              public boolean isClosed() {
-                  return false;
-              }
-
-              @Override
-              public void registerContentObserver(ContentObserver contentObserver) {
-
-              }
-
-              @Override
-              public void unregisterContentObserver(ContentObserver contentObserver) {
-
-              }
-
-              @Override
-              public void registerDataSetObserver(DataSetObserver dataSetObserver) {
-
-              }
-
-              @Override
-              public void unregisterDataSetObserver(DataSetObserver dataSetObserver) {
-
-              }
-
-              @Override
-              public void setNotificationUri(ContentResolver contentResolver, Uri uri) {
-
-              }
-
-              @Override
-              public Uri getNotificationUri() {
-                  return null;
-              }
-
-              @Override
-              public boolean getWantsAllOnMoveCalls() {
-                  return false;
-              }
-
-              @Override
-              public void setExtras(Bundle bundle) {
-
-              }
-
-              @Override
-              public Bundle getExtras() {
-                  return null;
-              }
-
-              @Override
-              public Bundle respond(Bundle bundle) {
-                  return null;
-              }
-          };
 
         // Link the adapter to the RecyclerView
-//        favoritesRecyclerView.setAdapter(movieAdapter);
+       favoritesRecyclerView.setAdapter(movieAdapter);
 
         toggle = (ToggleButton)findViewById(R.id.favourite_button);
 
@@ -304,9 +98,9 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
 
         mMoviesList.setLayoutManager(layoutManager);
 
-//        favoritesRecyclerView.setLayoutManager(layoutManager);
+        favoritesRecyclerView.setLayoutManager(layoutManager);
 
-        movieAdapter = new MovieAdapter(this, cursor);
+        movieAdapter = new MovieAdapter(this);
 
         mMoviesList.setAdapter(movieAdapter);
 
@@ -314,36 +108,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
 
     }
 
-    public void addToFavoriteList(){
-        addNewFavorite();
-        //MovieAdapter.swapCursor(getAllFavorites());
-    }
 
-    //private Cursor getAllFavorites() {
-      //  return mDb.query(
-      //          MoviesContract.MovieslistEntry.TABLE_NAME,
-      //          null,
-      //          null,
-      //         null,
-      //          null,
-      //          null,
-      //          MoviesContract.MovieslistEntry.COLUMN_POPULARITY
-      //  );
-    //};
-
-    private long addNewFavorite() {
-        //Inside, create a ContentValues instance to pass the values onto the insert query
-        ContentValues cv = new ContentValues();
-        // COMPLETED (6) call put to insert the name value with the key COLUMN_GUEST_NAME
-        cv.put(MoviesContract.MovieslistEntry.COLUMN_TITLE, movieTitle);
-        // COMPLETED (7) call put to insert the party size value with the key COLUMN_PARTY_SIZE
-        cv.put(MoviesContract.MovieslistEntry.COLUMN_SYNOPSIS, synopsis);
-        cv.put(MoviesContract.MovieslistEntry.COLUMN_USER_RATING, userRating);
-        cv.put(MoviesContract.MovieslistEntry.COLUMN_RELEASE_DATE, releaseDate);
-        cv.put(MoviesContract.MovieslistEntry.COLUMN_POPULARITY, popularity);
-        // COMPLETED (8) call insert to run an insert query on TABLE_NAME with the ContentValues created
-        return mDb.insert(MoviesContract.MovieslistEntry.TABLE_NAME, null, cv);
-    }
 
     @Override
     public void onClick(int clickedItemIndex) {
