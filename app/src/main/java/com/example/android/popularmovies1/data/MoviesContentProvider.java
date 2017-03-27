@@ -45,11 +45,59 @@ public class MoviesContentProvider extends ContentProvider {
         return true;
     }
 
-    @Nullable
+
     @Override
-    public Cursor query(@NonNull Uri uri, @Nullable String[] strings, @Nullable String s, @Nullable String[] strings1, @Nullable String s1) {
-        return null;
+    public Cursor query(@NonNull Uri uri, String[] projection, String selection,
+                        String[] selectionArgs, String sortOrder) {
+        final SQLiteDatabase db = mMoviesDbHelper.getReadableDatabase();
+
+
+        int match = sUriMatcher.match(uri);
+        Cursor retCursor;
+
+
+        switch (match) {
+
+            case FAVORITES:
+                retCursor =  db.query(TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null,
+                        null,
+                        sortOrder);
+                break;
+
+
+        case FAVORITE_WITH_ID:
+        // Get the id from the URI
+        String id = uri.getPathSegments().get(1);
+
+        // Selection is the _ID column = ?, and the Selection args = the row ID from the URI
+        String mSelection = "_id=?";
+        String[] mSelectionArgs = new String[]{id};
+
+        // Construct a query as you would normally, passing in the selection/args
+        retCursor =  db.query(TABLE_NAME,
+                projection,
+                mSelection,
+                mSelectionArgs,
+                null,
+                null,
+                sortOrder);
+        break;
+
+        // Default exception
+        default:
+        throw new UnsupportedOperationException("Unknown uri: " + uri);
     }
+
+    // Set a notification URI on the Cursor
+        retCursor.setNotificationUri(getContext().getContentResolver(), uri);
+
+    // Return the desired Cursor
+        return retCursor;
+}
 
     @Nullable
     @Override

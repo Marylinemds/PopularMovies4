@@ -13,11 +13,14 @@ import android.database.DataSetObserver;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.support.v4.content.AsyncTaskLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,11 +46,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements MovieAdapter.ListItemClickHandler {
 
-    String movieTitle;
-    String synopsis;
-    String userRating;
-    String releaseDate;
-    String popularity;
+    private static final String TAG = MainActivity.class.getSimpleName();
+
 
     MovieAdapter movieAdapter;
     RecyclerView mMoviesList;
@@ -70,7 +70,6 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
         favoritesRecyclerView = (RecyclerView) findViewById(R.id.favorites_list);
 
 
-
         MoviesDbHelper dbHelper = new MoviesDbHelper(this);
 
         if (mDb != null) {
@@ -79,20 +78,18 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
         }
 
 
-
         // Link the adapter to the RecyclerView
-       favoritesRecyclerView.setAdapter(movieAdapter);
+        favoritesRecyclerView.setAdapter(movieAdapter);
 
-        toggle = (ToggleButton)findViewById(R.id.favourite_button);
+        toggle = (ToggleButton) findViewById(R.id.favourite_button);
 
 
         mMoviesList = (RecyclerView) findViewById(R.id.rv_images);
         GridLayoutManager layoutManager;
 
-        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             layoutManager = new GridLayoutManager(this, 2);
-        }
-        else{
+        } else {
             layoutManager = new GridLayoutManager(this, 4);
         }
 
@@ -107,7 +104,6 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
         makeTheQuery();
 
     }
-
 
 
     @Override
@@ -129,78 +125,75 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
         return true;
     }
 
-        public boolean onOptionsItemSelected(MenuItem item) {
-                int itemThatWasClickedId = item.getItemId();
-                if (itemThatWasClickedId == R.id.most_popular) {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemThatWasClickedId = item.getItemId();
+        if (itemThatWasClickedId == R.id.most_popular) {
 
-                    Movie movie;
-                    Movie movie2;
-                    for (int i = 0; i < mNumberItems; i++) {
-                        for (int j = i + 1; j < mNumberItems - 1; j++) {
+            Movie movie;
+            Movie movie2;
+            for (int i = 0; i < mNumberItems; i++) {
+                for (int j = i + 1; j < mNumberItems - 1; j++) {
 
-                            movie = movies.get(i);
-                            movie2 = movies.get(j);
-                            double movie_d = Double.parseDouble((movie2.getPopularity()));
-                            double movie2_d = Double.parseDouble((movie.getPopularity()));
+                    movie = movies.get(i);
+                    movie2 = movies.get(j);
+                    double movie_d = Double.parseDouble((movie2.getPopularity()));
+                    double movie2_d = Double.parseDouble((movie.getPopularity()));
 
-                            if (Double.compare(movie2_d, movie_d)<0) {
-                                movies.remove(j);
-                                movies.add(i, movie2);
-                            }
-                        }
+                    if (Double.compare(movie2_d, movie_d) < 0) {
+                        movies.remove(j);
+                        movies.add(i, movie2);
                     }
-
-                    movieAdapter.notifyDataSetChanged();
-                    Context context = MainActivity.this;
-                    String textToShow = "Sorted by most popular";
-                    Toast.makeText(context, textToShow, Toast.LENGTH_SHORT).show();
-
-                    }else if(itemThatWasClickedId == R.id.highest_rated) {
-
-                    Movie movie;
-                    Movie movie2;
-                    for (int i = 0; i < mNumberItems; i++) {
-                        for (int j = i + 1; j < mNumberItems - 1; j++) {
-
-                            movie = movies.get(i);
-                            movie2 = movies.get(j);
-
-                            if ((movie2.getUserRating().compareTo(movie.getUserRating()) > 0)) {
-                                movies.remove(j);
-                                movies.add(i, movie2);
-                            }
-                        }
-
-
-                    }
-
-                    movieAdapter.notifyDataSetChanged();
-                    Context context = MainActivity.this;
-                    String textToShow = "Sorted by rate";
-                    Toast.makeText(context, textToShow, Toast.LENGTH_SHORT).show();
-                    return true;
-
-                }else if (itemThatWasClickedId == R.id.favorites) {
-                    Context context = MainActivity.this;
-                    String textToShow = "Here is the favorite list";
-                    Toast.makeText(context, textToShow, Toast.LENGTH_SHORT).show();
-
                 }
-             return super.onOptionsItemSelected(item);
-           }
+            }
+
+            movieAdapter.notifyDataSetChanged();
+            Context context = MainActivity.this;
+            String textToShow = "Sorted by most popular";
+            Toast.makeText(context, textToShow, Toast.LENGTH_SHORT).show();
+
+        } else if (itemThatWasClickedId == R.id.highest_rated) {
+
+            Movie movie;
+            Movie movie2;
+            for (int i = 0; i < mNumberItems; i++) {
+                for (int j = i + 1; j < mNumberItems - 1; j++) {
+
+                    movie = movies.get(i);
+                    movie2 = movies.get(j);
+
+                    if ((movie2.getUserRating().compareTo(movie.getUserRating()) > 0)) {
+                        movies.remove(j);
+                        movies.add(i, movie2);
+                    }
+                }
 
 
+            }
+
+            movieAdapter.notifyDataSetChanged();
+            Context context = MainActivity.this;
+            String textToShow = "Sorted by rate";
+            Toast.makeText(context, textToShow, Toast.LENGTH_SHORT).show();
+            return true;
+
+        } else if (itemThatWasClickedId == R.id.favorites) {
+            Context context = MainActivity.this;
+            String textToShow = "Here is the favorite list";
+            Toast.makeText(context, textToShow, Toast.LENGTH_SHORT).show();
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 
-
-    private void makeTheQuery(){
+    private void makeTheQuery() {
         URL SearchUrl = NetworkUtils.buildUrl();
         new TheMovieAsyncTask().execute(SearchUrl);
 
     }
 
 
-    public class TheMovieAsyncTask extends AsyncTask <URL, Void, String>{
+    public class TheMovieAsyncTask extends AsyncTask<URL, Void, String> {
 
 
         @Override
@@ -219,12 +212,13 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
             return movieData;
 
         }
+
         @Override
         protected void onPostExecute(String jsonData) {
 
 
             System.out.println("JSON " + jsonData);
-            if (jsonData !=null){
+            if (jsonData != null) {
                 try {
                     //System.out.println("http://image.tmdb.org/t/p/" + picSize + moviePath);
                     JSONObject obj = new JSONObject(jsonData);
@@ -239,7 +233,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
                         String originalTitle = resultsData.getString("original_title");
                         String synopsis = resultsData.getString("overview");
                         String userRating = resultsData.getString("vote_average");
-                        String releaseDate =resultsData.getString("release_date");
+                        String releaseDate = resultsData.getString("release_date");
                         String popularity = resultsData.getString("popularity");
                         String moviePath = resultsData.getString("poster_path").replace("\\Tasks", "");
                         String picSize = "w185";
@@ -268,6 +262,55 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
 
         }
 
+
+    }
+
+
+    public Loader<Cursor> onCreateLoader(int id, final Bundle loaderArgs) {
+
+        return new AsyncTaskLoader<Cursor>(this) {
+
+            // Initialize a Cursor, this will hold all the task data
+            Cursor mMovieData = null;
+
+            // onStartLoading() is called when a loader first starts loading data
+            @Override
+            protected void onStartLoading() {
+                if (mMovieData != null) {
+                    // Delivers any previously loaded data immediately
+                    deliverResult(mMovieData);
+                } else {
+                    // Force a new load
+                    forceLoad();
+                }
+            }
+
+    public Cursor loadInBackground() {
+        // Will implement to load data
+
+        // COMPLETED (5) Query and load all task data in the background; sort by priority
+        // [Hint] use a try/catch block to catch any errors in loading data
+
+        try {
+            return getContentResolver().query(MoviesContract.MovieslistEntry.CONTENT_URI,
+                    null,
+                    null,
+                    null,
+                    MoviesContract.MovieslistEntry.COLUMN_USER_RATING);
+
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to asynchronously load data.");
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    // deliverResult sends the result of the load, a Cursor, to the registered listener
+    public void deliverResult(Cursor data) {
+         mMovieData = data;
+        super.deliverResult(data);
+    }
+};
 
     }
 
