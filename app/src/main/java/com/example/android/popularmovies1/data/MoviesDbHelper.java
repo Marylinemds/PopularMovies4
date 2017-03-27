@@ -29,7 +29,6 @@ public class MoviesDbHelper extends SQLiteOpenHelper {
                 MovieslistEntry.COLUMN_SYNOPSIS + " TEXT NOT NULL, " +
                 MovieslistEntry.COLUMN_USER_RATING + " TEXT NOT NULL, " +
                 MovieslistEntry.COLUMN_RELEASE_DATE + " TEXT NOT NULL, " +
-                MovieslistEntry.COLUMN_POPULARITY + " TEXT NOT NULL, " +
                 "); ";
 
         // Execute the query by calling execSQL on sqLiteDatabase and pass the string query SQL_CREATE_MOVIESLIST_TABLE

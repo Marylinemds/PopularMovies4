@@ -1,18 +1,29 @@
 package com.example.android.popularmovies1;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.FloatRange;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.example.android.popularmovies1.data.MoviesContract;
 import com.squareup.picasso.Picasso;
+
+import static android.R.id.input;
+import static android.R.id.title;
+import static com.example.android.popularmovies1.R.id.release_date;
+import static com.example.android.popularmovies1.R.id.sypnosis;
+import static com.example.android.popularmovies1.R.id.vote_average;
 
 
 /**
@@ -45,7 +56,7 @@ public class ChildActivity extends AppCompatActivity {
         releaseDate_tv= (TextView) findViewById(R.id.release_date);
         voteAverage_tv = (TextView) findViewById(R.id.vote_average_2);
         voteAverage_rb = (RatingBar) findViewById(R.id.vote_average);
-        sypnosis_tv = (TextView) findViewById(R.id.sypnosis);
+        sypnosis_tv = (TextView) findViewById(sypnosis);
 
 
 
@@ -71,5 +82,34 @@ public class ChildActivity extends AppCompatActivity {
 
 
 
+    }
+
+    public void OnClickAddFavorite(View view){
+
+        String title = ((TextView) findViewById(R.id.movie_title)).getText().toString();
+        String synopsis = ((TextView) findViewById(R.id.sypnosis)).getText().toString();
+        String voteAverage = ((TextView) findViewById(R.id.vote_average_2)).getText().toString();
+        String releaseDate = ((TextView) findViewById(R.id.release_date)).getText().toString();
+
+        if (title.length() == 0) {
+            return;
+        }
+
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(MoviesContract.MovieslistEntry.COLUMN_TITLE, title);
+        contentValues.put(MoviesContract.MovieslistEntry.COLUMN_SYNOPSIS, synopsis);
+        contentValues.put(MoviesContract.MovieslistEntry.COLUMN_USER_RATING, voteAverage);
+        contentValues.put(MoviesContract.MovieslistEntry.COLUMN_RELEASE_DATE, releaseDate);
+
+        Uri uri = getContentResolver().insert(MoviesContract.MovieslistEntry.CONTENT_URI, contentValues);
+
+
+        if(uri != null) {
+            Toast.makeText(getBaseContext(), uri.toString(), Toast.LENGTH_LONG).show();
+        }
+
+
+        finish();
     }
 }

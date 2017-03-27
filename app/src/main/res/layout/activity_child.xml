@@ -80,7 +80,7 @@
                  android:focusableInTouchMode="false"
                  android:textOff=""
                  android:textOn=""
-                 android:layout_weight="1" />
+                 android:onClick="OnClickAddFavorite"/>
 
                     </LinearLayout>
 
