@@ -3,6 +3,7 @@ package com.example.android.popularmovies1.data;
 import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.UriMatcher;
 import android.database.Cursor;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -15,6 +16,22 @@ import android.support.annotation.Nullable;
 public class MoviesContentProvider extends ContentProvider {
 
     public MoviesDbHelper mMoviesDbHelper;
+
+    public static final int FAVORITES = 100;
+    public static final int FAVORITE_WITH_ID = 101;
+
+    public static final UriMatcher sUriMatcher = buildUriMatcher();
+
+    public static UriMatcher buildUriMatcher(){
+        UriMatcher UriMatcher = new UriMatcher(android.content.UriMatcher.NO_MATCH);
+
+        UriMatcher.addURI(MoviesContract.AUTHORITY, MoviesContract.PATH_FAVORITE, FAVORITES);
+        UriMatcher.addURI(MoviesContract.AUTHORITY, MoviesContract.PATH_FAVORITE + "/#", FAVORITE_WITH_ID);
+
+        return UriMatcher;
+
+    }
+
 
     @Override
     public boolean onCreate() {
