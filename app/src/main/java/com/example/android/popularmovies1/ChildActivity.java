@@ -86,21 +86,12 @@ public class ChildActivity extends AppCompatActivity {
 
     public void OnClickAddFavorite(View view){
 
-        String title = ((TextView) findViewById(R.id.movie_title)).getText().toString();
-        String synopsis = ((TextView) findViewById(R.id.sypnosis)).getText().toString();
-        String voteAverage = ((TextView) findViewById(R.id.vote_average_2)).getText().toString();
-        String releaseDate = ((TextView) findViewById(R.id.release_date)).getText().toString();
-
-        if (title.length() == 0) {
-            return;
-        }
-
         ContentValues contentValues = new ContentValues();
 
-        contentValues.put(MoviesContract.MovieslistEntry.COLUMN_TITLE, title);
-        contentValues.put(MoviesContract.MovieslistEntry.COLUMN_SYNOPSIS, synopsis);
-        contentValues.put(MoviesContract.MovieslistEntry.COLUMN_USER_RATING, voteAverage);
-        contentValues.put(MoviesContract.MovieslistEntry.COLUMN_RELEASE_DATE, releaseDate);
+        contentValues.put(MoviesContract.MovieslistEntry.COLUMN_TITLE, movie.getOriginalTitle());
+        contentValues.put(MoviesContract.MovieslistEntry.COLUMN_SYNOPSIS, movie.getSynopsis());
+        contentValues.put(MoviesContract.MovieslistEntry.COLUMN_USER_RATING, movie.getUserRating());
+        contentValues.put(MoviesContract.MovieslistEntry.COLUMN_RELEASE_DATE, movie.getReleaseDate());
 
         Uri uri = getContentResolver().insert(MoviesContract.MovieslistEntry.CONTENT_URI, contentValues);
 

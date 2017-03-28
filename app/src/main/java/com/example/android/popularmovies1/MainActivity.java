@@ -65,10 +65,6 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        RecyclerView favoritesRecyclerView;
-
-        favoritesRecyclerView = (RecyclerView) findViewById(R.id.favorites_list);
-
 
         MoviesDbHelper dbHelper = new MoviesDbHelper(this);
 
@@ -76,10 +72,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
 
             mDb = dbHelper.getWritableDatabase();
         }
-
-
-        // Link the adapter to the RecyclerView
-        favoritesRecyclerView.setAdapter(movieAdapter);
+        
 
         toggle = (ToggleButton) findViewById(R.id.favourite_button);
 
@@ -95,7 +88,6 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
 
         mMoviesList.setLayoutManager(layoutManager);
 
-        favoritesRecyclerView.setLayoutManager(layoutManager);
 
         movieAdapter = new MovieAdapter(this);
 
