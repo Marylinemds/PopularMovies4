@@ -85,20 +85,6 @@ public class ChildActivity extends AppCompatActivity {
             }
         }
 
-        ToggleButton  ToggleButton = (ToggleButton) findViewById(R.id.favourite_button);
-
-
-
-        SharedPreferences sharedPrefs = getSharedPreferences("com.example.android.popularmovies1", MODE_PRIVATE);
-
-        ToggleButton.setActivated(sharedPrefs.getBoolean("NameOfThingToSave",false ));
-
-        if (!ToggleButton.isActivated()){
-            ToggleButton.setChecked(false);
-        }else{
-            ToggleButton.setChecked(true);
-        }
-
 
     }
 
@@ -121,9 +107,6 @@ public class ChildActivity extends AppCompatActivity {
             ToggleButton.setChecked(true);
 
 
-            SharedPreferences.Editor editor = getSharedPreferences("com.example.android.popularmovies1", MODE_PRIVATE).edit();
-            editor.putBoolean("NameOfThingToSave", true);
-            editor.apply();
 
 
         }else{
@@ -131,9 +114,6 @@ public class ChildActivity extends AppCompatActivity {
             ToggleButton.setActivated(false);
             ToggleButton.setChecked(false);
 
-            SharedPreferences.Editor editor = getSharedPreferences("com.example.android.popularmovies1", MODE_PRIVATE).edit();
-            editor.putBoolean("NameOfThingToSave", false);
-            editor.apply();
         }
 
 
