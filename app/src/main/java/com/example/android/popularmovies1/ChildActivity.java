@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.FloatRange;
@@ -46,8 +47,10 @@ public class ChildActivity extends AppCompatActivity {
     String voteAverage;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_child);
@@ -82,6 +85,19 @@ public class ChildActivity extends AppCompatActivity {
             }
         }
 
+        ToggleButton  ToggleButton = (ToggleButton) findViewById(R.id.favourite_button);
+
+
+
+        SharedPreferences sharedPrefs = getSharedPreferences("com.example.android.popularmovies1", MODE_PRIVATE);
+
+        ToggleButton.setActivated(sharedPrefs.getBoolean("NameOfThingToSave",false ));
+
+        if (!ToggleButton.isActivated()){
+            ToggleButton.setChecked(false);
+        }else{
+            ToggleButton.setChecked(true);
+        }
 
 
     }
@@ -97,19 +113,27 @@ public class ChildActivity extends AppCompatActivity {
 
         Uri uri = getContentResolver().insert(MoviesContract.MovieslistEntry.CONTENT_URI, contentValues);
 
+        ToggleButton  ToggleButton = (ToggleButton) findViewById(R.id.favourite_button);
 
-        //if(uri != null) {
-        //    Toast.makeText(getBaseContext(), uri.toString(), Toast.LENGTH_LONG).show();
-        //}
-
-        ToggleButton ToggleButton = (ToggleButton) findViewById(R.id.favourite_button);
-
-        if (ToggleButton.isActivated()){
-            Toast.makeText(this, "deleted", Toast.LENGTH_LONG).show();
-            ToggleButton.setActivated(false);
-        }else{
-            Toast.makeText(this, "added", Toast.LENGTH_LONG).show();
+        if (!ToggleButton.isActivated()){
+            Toast.makeText(this, "added to favorites", Toast.LENGTH_SHORT).show();
             ToggleButton.setActivated(true);
+            ToggleButton.setChecked(true);
+
+
+            SharedPreferences.Editor editor = getSharedPreferences("com.example.android.popularmovies1", MODE_PRIVATE).edit();
+            editor.putBoolean("NameOfThingToSave", true);
+            editor.apply();
+
+
+        }else{
+            Toast.makeText(this, "removed from favorites", Toast.LENGTH_SHORT).show();
+            ToggleButton.setActivated(false);
+            ToggleButton.setChecked(false);
+
+            SharedPreferences.Editor editor = getSharedPreferences("com.example.android.popularmovies1", MODE_PRIVATE).edit();
+            editor.putBoolean("NameOfThingToSave", false);
+            editor.apply();
         }
 
 
