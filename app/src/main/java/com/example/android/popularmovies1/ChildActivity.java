@@ -8,7 +8,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.FloatRange;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -96,11 +98,22 @@ public class ChildActivity extends AppCompatActivity {
         Uri uri = getContentResolver().insert(MoviesContract.MovieslistEntry.CONTENT_URI, contentValues);
 
 
-        if(uri != null) {
-            Toast.makeText(getBaseContext(), uri.toString(), Toast.LENGTH_LONG).show();
+        //if(uri != null) {
+        //    Toast.makeText(getBaseContext(), uri.toString(), Toast.LENGTH_LONG).show();
+        //}
+
+        ToggleButton ToggleButton = (ToggleButton) findViewById(R.id.favourite_button);
+
+        if (ToggleButton.isActivated()){
+            Toast.makeText(this, "deleted", Toast.LENGTH_LONG).show();
+            ToggleButton.setActivated(false);
+        }else{
+            Toast.makeText(this, "added", Toast.LENGTH_LONG).show();
+            ToggleButton.setActivated(true);
         }
 
 
-        finish();
     }
+
+
 }
