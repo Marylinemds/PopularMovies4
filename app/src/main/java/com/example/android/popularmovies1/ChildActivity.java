@@ -5,6 +5,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.FloatRange;
@@ -19,14 +21,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.example.android.popularmovies1.data.MoviesContentProvider;
 import com.example.android.popularmovies1.data.MoviesContract;
+import com.example.android.popularmovies1.data.MoviesDbHelper;
 import com.squareup.picasso.Picasso;
 
+import static android.R.attr.id;
 import static android.R.id.input;
 import static android.R.id.title;
 import static com.example.android.popularmovies1.R.id.release_date;
 import static com.example.android.popularmovies1.R.id.sypnosis;
 import static com.example.android.popularmovies1.R.id.vote_average;
+import static com.example.android.popularmovies1.data.MoviesContract.MovieslistEntry.COLUMN_TITLE;
+import static com.example.android.popularmovies1.data.MoviesContract.MovieslistEntry.TABLE_NAME;
 
 
 /**
@@ -46,11 +53,13 @@ public class ChildActivity extends AppCompatActivity {
 
     String voteAverage;
 
+    private SQLiteDatabase mDb;
+
+    MoviesDbHelper mMoviesDbHelper;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_child);
@@ -85,6 +94,22 @@ public class ChildActivity extends AppCompatActivity {
             }
         }
 
+        mMoviesDbHelper = new MoviesDbHelper(this);
+        mDb = mMoviesDbHelper.getWritableDatabase();
+
+    }
+
+    public boolean ExistsInDb(String searchItem){
+
+        String[] columns = { COLUMN_TITLE};
+        String selection = COLUMN_TITLE + " =?";
+        String[] selectionArgs = {searchItem};
+        String limit = "1";
+
+        Cursor cursor = mDb.query(TABLE_NAME, columns, selection, selectionArgs, null, null, null, limit);
+        boolean existsInDb = (cursor.getCount() > 0);
+        cursor.close();
+        return existsInDb;
 
     }
 
@@ -92,12 +117,13 @@ public class ChildActivity extends AppCompatActivity {
 
         ContentValues contentValues = new ContentValues();
 
-        contentValues.put(MoviesContract.MovieslistEntry.COLUMN_TITLE, movie.getOriginalTitle());
+        contentValues.put(COLUMN_TITLE, movie.getOriginalTitle());
         contentValues.put(MoviesContract.MovieslistEntry.COLUMN_SYNOPSIS, movie.getSynopsis());
         contentValues.put(MoviesContract.MovieslistEntry.COLUMN_USER_RATING, movie.getUserRating());
         contentValues.put(MoviesContract.MovieslistEntry.COLUMN_RELEASE_DATE, movie.getReleaseDate());
 
         Uri uri = getContentResolver().insert(MoviesContract.MovieslistEntry.CONTENT_URI, contentValues);
+
 
         ToggleButton  ToggleButton = (ToggleButton) findViewById(R.id.favourite_button);
 
@@ -106,13 +132,15 @@ public class ChildActivity extends AppCompatActivity {
             ToggleButton.setActivated(true);
             ToggleButton.setChecked(true);
 
-
+            mDb.insert(TABLE_NAME, null, contentValues);
 
 
         }else{
             Toast.makeText(this, "removed from favorites", Toast.LENGTH_SHORT).show();
             ToggleButton.setActivated(false);
             ToggleButton.setChecked(false);
+
+            mDb.delete(TABLE_NAME, MoviesContract.MovieslistEntry._ID + "=" + id ,null);
 
         }
 
