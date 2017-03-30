@@ -101,7 +101,7 @@ public class ChildActivity extends AppCompatActivity {
 
     public boolean ExistsInDb(String searchItem){
 
-        String[] columns = { COLUMN_TITLE};
+        String[] columns = {COLUMN_TITLE};
         String selection = COLUMN_TITLE + " =?";
         String[] selectionArgs = {searchItem};
         String limit = "1";
