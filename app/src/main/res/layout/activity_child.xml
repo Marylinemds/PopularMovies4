@@ -116,7 +116,25 @@
         android:textSize="16sp"
         android:padding="15dp"/>
 
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/rv_videos">
 
+    </android.support.v7.widget.RecyclerView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <WebView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/wv_reviews">
+
+    </WebView>
+
+    </LinearLayout>
 </LinearLayout>
 
 </ScrollView>

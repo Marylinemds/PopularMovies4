@@ -185,6 +185,8 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
     }
 
 
+
+
     public class TheMovieAsyncTask extends AsyncTask<URL, Void, String> {
 
 
@@ -227,6 +229,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
                         String userRating = resultsData.getString("vote_average");
                         String releaseDate = resultsData.getString("release_date");
                         String popularity = resultsData.getString("popularity");
+                        String id = resultsData.getString("id");
                         String moviePath = resultsData.getString("poster_path").replace("\\Tasks", "");
                         String picSize = "w185";
 
@@ -238,6 +241,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
                         movie.setSynopsis(synopsis);
                         movie.setUserRating(userRating);
                         movie.setPopularity(popularity);
+                        movie.setId(id);
 
                         movies.add(movie);
 

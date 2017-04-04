@@ -5,14 +5,19 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.FloatRange;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -21,10 +26,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.android.popularmovies1.data.MoviesContentProvider;
 import com.example.android.popularmovies1.data.MoviesContract;
 import com.example.android.popularmovies1.data.MoviesDbHelper;
+import com.example.android.popularmovies1.utilities.NetworkUtils;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.net.URL;
 
 import static android.R.attr.id;
 import static android.R.id.input;
@@ -42,6 +61,11 @@ import static com.example.android.popularmovies1.data.MoviesContract.MovieslistE
 
 public class ChildActivity extends AppCompatActivity {
 
+    WebView mReviewsList;
+    RecyclerView mVideosList;
+
+    //VideoAdapter videoAdapter;
+
     ImageView movieDisplay;
     TextView originalTitle_tv;
     TextView originalTitle_tv_2;
@@ -56,6 +80,8 @@ public class ChildActivity extends AppCompatActivity {
     private SQLiteDatabase mDb;
 
     MoviesDbHelper mMoviesDbHelper;
+
+    public String id;
 
 
     @Override
@@ -80,6 +106,7 @@ public class ChildActivity extends AppCompatActivity {
             if (startChildActivityIntent.hasExtra("MyClass")) {
                movie = startChildActivityIntent.getParcelableExtra("MyClass");
                 String moviePath = movie.getMoviePath();
+                String id = movie.getId();
 
                 originalTitle_tv.setText(movie.getOriginalTitle());
                 originalTitle_tv_2.setText(movie.getOriginalTitle());
@@ -97,7 +124,73 @@ public class ChildActivity extends AppCompatActivity {
         mMoviesDbHelper = new MoviesDbHelper(this);
         mDb = mMoviesDbHelper.getWritableDatabase();
 
+        mReviewsList = (WebView) findViewById(R.id.wv_reviews);
+        mVideosList = (RecyclerView) findViewById(R.id.rv_videos);
+
+
+        //videoAdapter = new VideoAdapter();
+
+
+       // mVideosList.setAdapter(videoAdapter);
+
+        //makeTheQueryVideos();
+        makeTheQueryReviews();
+
     }
+
+    public void makeTheQueryVideos(){
+        URL SearchUrl = NetworkUtils.buildUrlVideo(id);
+        //VideosAsyncTask().execute(SearchUrl);
+    }
+
+    public void makeTheQueryReviews(){
+        URL SearchUrl = NetworkUtils.buildUrlVideo(id);
+        String searchUrl = SearchUrl.toString();
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+// Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, searchUrl,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String JSONData) {
+                        if (JSONData != null) {
+
+                            try {
+
+                                JSONObject objJSON = new JSONObject(JSONData);
+                                JSONArray results = objJSON.getJSONArray("Results");
+                                Review review;
+
+                                for (int i = 0; i < results.length(); i++) {
+
+                                    JSONObject resultsData = results.getJSONObject(i);
+
+                                    String content = resultsData.getString("content");
+                                    String author = resultsData.getString("author");
+
+                                    review = new Review();
+                                    review.setAuthor(author);
+                                    review.setContent(content);
+
+                                    mReviewsList.loadData(content, "text/html; charset=UTF-8", null);
+                                }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                mReviewsList.loadData("error", "text/html; charset=UTF-8", null);
+            }
+        });
+// Add the request to the RequestQueue.
+        queue.add(stringRequest);
+    }
+
+
 
     public boolean ExistsInDb(String searchItem){
 
