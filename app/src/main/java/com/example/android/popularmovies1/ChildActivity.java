@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.android.popularmovies1.data.MoviesContentProvider;
@@ -44,6 +46,8 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import static android.R.attr.id;
 import static android.R.id.input;
@@ -63,6 +67,7 @@ public class ChildActivity extends AppCompatActivity {
 
     WebView mReviewsList;
     RecyclerView mVideosList;
+    VideoAdapter videoAdapter;
 
     //VideoAdapter videoAdapter;
 
@@ -78,6 +83,7 @@ public class ChildActivity extends AppCompatActivity {
     String voteAverage;
 
     private SQLiteDatabase mDb;
+    List<Video> videos = new ArrayList<>();
 
     MoviesDbHelper mMoviesDbHelper;
 
@@ -140,8 +146,52 @@ public class ChildActivity extends AppCompatActivity {
 
     public void makeTheQueryVideos(){
         URL SearchUrl = NetworkUtils.buildUrlVideo(id);
-        //VideosAsyncTask().execute(SearchUrl);
+        String searchUrl = SearchUrl.toString();
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, searchUrl,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String JSONData) {
+                        if (JSONData != null) {
+
+                            try {
+
+                                JSONObject objJSON = new JSONObject(JSONData);
+                                JSONArray results = objJSON.getJSONArray("Results");
+                                Video video;
+
+                                for (int i = 0; i < results.length(); i++) {
+
+                                    JSONObject resultsData = results.getJSONObject(i);
+
+                                    String key = resultsData.getString("key");
+                                    String videoName = resultsData.getString("name");
+
+                                    video = new Video();
+                                    video.setKey(key);
+                                    video.setVideoName(videoName);
+
+                                }
+
+                                videoAdapter.setVideos(videos);
+                                videoAdapter.notifyDataSetChanged();
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                mReviewsList.loadData("error", "text/html; charset=UTF-8", null);
+            }
+        });
+// Add the request to the RequestQueue.
+        queue.add(stringRequest);
     }
+
 
     public void makeTheQueryReviews(){
         URL SearchUrl = NetworkUtils.buildUrlVideo(id);

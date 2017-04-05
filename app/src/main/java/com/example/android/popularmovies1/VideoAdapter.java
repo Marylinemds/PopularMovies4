@@ -1,17 +1,20 @@
 package com.example.android.popularmovies1;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.example.android.popularmovies1.R.layout.videoitem;
 
@@ -19,16 +22,16 @@ import static com.example.android.popularmovies1.R.layout.videoitem;
  * Created by Maryline on 3/31/2017.
  */
 
-/*public class VideoAdapter extends RecyclerView.Adapter<com.example.android.popularmovies1.VideoAdapter.ViewHolder>{
+public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ImageViewHolder>{
 
 
-        final private com.example.android.popularmovies1.VideoAdapter.ListItemClickHandler mOnClickHandler;
+        final private ListItemClickHandler mOnClickHandler;
         public Cursor mCursor;
 
 
         List<Video> videos;
 
-        public VideoAdapter(com.example.android.popularmovies1.VideoAdapter.ListItemClickHandler listener) {
+        public VideoAdapter(ListItemClickHandler listener) {
             mOnClickHandler = listener;
         }
 
@@ -41,7 +44,7 @@ import static com.example.android.popularmovies1.R.layout.videoitem;
         }
 
         @Override
-        public com.example.android.popularmovies1.VideoAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public ImageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             // crear context + layout inflater + create view del movieitem inflando
             // crear imageview holder y pasar el view que acabo de inflar + return imageview
 
@@ -52,25 +55,23 @@ import static com.example.android.popularmovies1.R.layout.videoitem;
             boolean shouldAttachToParentImmediately = false;
 
             View view = inflater.inflate(layoutIdForPoster, parent, shouldAttachToParentImmediately);
-            RecyclerView.ViewHolder viewHolder = new RecyclerView.ViewHolder(view);
+            ImageViewHolder viewHolder = new ImageViewHolder(view);
 
 
             return viewHolder;
         }
 
-        @Override
-        public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
-            // try and catch, if not null
-            // coger los datos del API y meterlos al imageview del viewholder
-            Context context = viewHolder.videoButton.getContext();
+    @Override
+    public void onBindViewHolder(ImageViewHolder viewHolder, int position) {
+        Context context = viewHolder.videoThumbnail.getContext();
 
-            Video video = videos.get(position);
+        Video video = videos.get(position);
+        String key = video.getKey();
 
-            //String something = video.getsomething();
+        String baseUrl = "https://img.youtube.com/vi/";
 
-           // Picasso.with(context).load("http://image.tmdb.org/t/p/" + "w185" + moviePath).into(viewHolder.poster);
-
-        }
+        Picasso.with(context).load(baseUrl + key + "/1.jpg").into(viewHolder.videoThumbnail);
+    }
 
         @Override
         public int getItemCount() {
@@ -78,14 +79,14 @@ import static com.example.android.popularmovies1.R.layout.videoitem;
             return videos == null ? 0 : videos.size();
         }
 
-        public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        public class ImageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-            public Button videoButton;
+            public ImageView videoThumbnail;
 
-            public ViewHolder(View itemView) {
+            public ImageViewHolder(View itemView) {
                 super(itemView);
 
-                videoButton = (Button) itemView.findViewById(R.id.video_item);
+                videoThumbnail = (ImageView) itemView.findViewById(R.id.video_item);
 
                 itemView.setOnClickListener(this);
             }
@@ -94,6 +95,15 @@ import static com.example.android.popularmovies1.R.layout.videoitem;
             public void onClick(View view) {
                 int clickedPosition = getAdapterPosition();
                 mOnClickHandler.onClick(clickedPosition);
+
+                Video video = videos.get(clickedPosition);
+                String mVideoId = video.getKey();
+                Matcher matcher = Pattern.compile("http://www.youtube.com/embed/").matcher(mVideoId);
+                matcher.find();
+                Intent VideoIntent = new Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("ytv://" + mVideoId));
+                view.getContext().startActivity(VideoIntent);
             }
         }
 
@@ -117,6 +127,6 @@ import static com.example.android.popularmovies1.R.layout.videoitem;
 
     }
 
-}
 
-*/
+
+

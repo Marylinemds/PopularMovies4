@@ -185,8 +185,6 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
     }
 
 
-
-
     public class TheMovieAsyncTask extends AsyncTask<URL, Void, String> {
 
 
