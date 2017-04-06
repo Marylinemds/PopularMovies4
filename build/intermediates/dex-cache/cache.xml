@@ -2,148 +2,139 @@
 <items version="2" >
 
     <item
-        is-multidex="true"
-        jar="C:\Users\Maryline\.android\build-cache\81d5abb5a4d2c6632e9f7e83fda5c77506ee7715\output\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="0fb891e8f0cfba0513043a7bb357513d229ca2cd">
-        <dex dex="C:\Users\Maryline\Desktop\PopularMovies_1-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_d12da5ef85ea99720cb2bc3d27ef6bc9ac354e73\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Maryline\.gradle\caches\modules-2\files-2.1\com.squareup.picasso\picasso\2.5.2\7446d06ec8d4f7ffcc53f1da37c95f200dcb9387\picasso-2.5.2.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
-        <dex dex="C:\Users\Maryline\Desktop\PopularMovies_1-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\picasso-2.5.2_b3afe5a2ba2d6eb5a0308e54ef355c270ac67a70\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Maryline\.android\build-cache\eea44c6b85e3f8c4397eab936ad628694e4714e5\output\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
-        <dex dex="C:\Users\Maryline\Desktop\PopularMovies_1-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_c30392c60c28926e0ae9be6bde5fc0eef7b98eb4\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Maryline\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\25.1.1\support-annotations-25.1.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="b59b6ee8d6ecc03e672d253800430343493a6ed8">
-        <dex dex="C:\Users\Maryline\Desktop\PopularMovies_1-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-25.1.1_cf1d866ecfda3a249e1261c8655dee87812cfd34\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Maryline\AppData\Local\Android\sdk\extras\m2repository\com\android\support\constraint\constraint-layout-solver\1.0.0-beta4\constraint-layout-solver-1.0.0-beta4.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="0a9cb567dc008f570c28531720168f19148da965">
-        <dex dex="C:\Users\Maryline\Desktop\PopularMovies_1-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\constraint-layout-solver-1.0.0-beta4_ed0a2976374de6ca183c1f480063397b9e69959b\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
+        is-multidex="false"
         jar="C:\Users\Maryline\.android\build-cache\c7930a27712158c0f4c8a0600fd1a7566e388bd3\output\jars\classes.jar"
-        jumboMode="true"
+        jumboMode="false"
         optimize="true"
         revision="25.0.2"
         sha1="662d7533b25a666c649c10a16b42edfb95f25a4f">
-        <dex dex="C:\Users\Maryline\Desktop\PopularMovies_1-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_88e63bc0f1e36bc6af6e9e659b7942e204966558\classes.dex" />
+        <dex dex="C:\Users\Maryline\Desktop\PopularMovies_1-master\app\build\intermediates\pre-dexed\debug\classes_88e63bc0f1e36bc6af6e9e659b7942e204966558.jar" />
     </item>
     <item
-        is-multidex="true"
-        jar="C:\Users\Maryline\.android\build-cache\20a5f08fd56a2e53f57fb91e323f3a93a181333f\output\jars\classes.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="C:\Users\Maryline\AppData\Local\Android\sdk\extras\m2repository\com\android\support\constraint\constraint-layout-solver\1.0.0-beta4\constraint-layout-solver-1.0.0-beta4.jar"
+        jumboMode="false"
         optimize="true"
         revision="25.0.2"
-        sha1="02741d05d4b697fba5e279e9881aaa1da0ca7c7f">
-        <dex dex="C:\Users\Maryline\Desktop\PopularMovies_1-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_de395ab5b7e44a40f403435146097bef189e4ca9\classes.dex" />
+        sha1="0a9cb567dc008f570c28531720168f19148da965">
+        <dex dex="C:\Users\Maryline\Desktop\PopularMovies_1-master\app\build\intermediates\pre-dexed\debug\constraint-layout-solver-1.0.0-beta4_ed0a2976374de6ca183c1f480063397b9e69959b.jar" />
     </item>
     <item
-        is-multidex="true"
-        jar="C:\Users\Maryline\.android\build-cache\abc364e6c7fac6285f3ff15706c9ab3608c871ad\output\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="ecb496cc08dd52551fc5ec6db3bc0632e95a89bb">
-        <dex dex="C:\Users\Maryline\Desktop\PopularMovies_1-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_246550599d6fcf0e9f3e5e58b5bd38da4ccff9a4\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Maryline\.android\build-cache\a9e7670069ddd6ec348441683c4194014deec0c2\output\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="c03bf57f358aa10d253f21989e93bcf6014b3b17">
-        <dex dex="C:\Users\Maryline\Desktop\PopularMovies_1-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_3cf4053ba5d24e86c3ee077379358c6c14c0d30e\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Maryline\.android\build-cache\801446caa7169dcd9abdb761cb10e741b99b303a\output\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="7bde4c34162092e0a77e7f12dc85ed77c484cf5c">
-        <dex dex="C:\Users\Maryline\Desktop\PopularMovies_1-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_101b07ce4f0a19ab6f165d622fb0f11b74620e26\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Maryline\.android\build-cache\4dc12778b427a3b44a1948bcbd99280e069b1d34\output\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="3e04ac8ca644ea7baddf6fdcf72e15c79e9df94a">
-        <dex dex="C:\Users\Maryline\Desktop\PopularMovies_1-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_5a43d9120dc4f0d8743645e40d1f949a33680262\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Maryline\.android\build-cache\492c653ee8553bebb1e3c675fddd5105630559d1\output\jars\classes.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="C:\Users\Maryline\.android\build-cache\89b95105478f3369b3091c406cc19a96e0d04d8c\output\jars\classes.jar"
+        jumboMode="false"
         optimize="true"
         revision="25.0.2"
         sha1="c9649557905bf7a80fca9e0d54cbcb7662627860">
-        <dex dex="C:\Users\Maryline\Desktop\PopularMovies_1-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_0094166976644545cdee5ed5cad7297dd568065d\classes.dex" />
+        <dex dex="C:\Users\Maryline\Desktop\PopularMovies_1-master\app\build\intermediates\pre-dexed\debug\classes_f1c1c6dd76a6b467c1b8c4494539cc05d8e6bed6.jar" />
     </item>
     <item
-        is-multidex="true"
-        jar="C:\Users\Maryline\Desktop\PopularMovies_1-master\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="C:\Users\Maryline\.android\build-cache\4b3957303d14e534b763fc9c3eb38d81adca6ce2\output\jars\classes.jar"
+        jumboMode="false"
         optimize="true"
         revision="25.0.2"
-        sha1="c82741bc129dd5f99f11a4ab8666ae24262053b6">
-        <dex dex="C:\Users\Maryline\Desktop\PopularMovies_1-master\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_2213b83808f54dee340f3fc88bd6c3f16ced0e59\classes.dex" />
+        sha1="ecb496cc08dd52551fc5ec6db3bc0632e95a89bb">
+        <dex dex="C:\Users\Maryline\Desktop\PopularMovies_1-master\app\build\intermediates\pre-dexed\debug\classes_483691b768d9d10cb441f08561154eb8b54bac5f.jar" />
     </item>
     <item
-        is-multidex="true"
-        jar="C:\Users\Maryline\.android\build-cache\b57e24f808703f5392f982c19142811078db8267\output\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="0d191c1a09e4892d059e5ce749e4ad4e08129e35">
-        <dex dex="C:\Users\Maryline\Desktop\PopularMovies_1-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_4be6820632e50d25ccd016002b5424cf1b393434\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Maryline\Desktop\PopularMovies_1-master\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="b2a7eceb5de315ac9769548dc07c453cd411002e">
-        <dex dex="C:\Users\Maryline\Desktop\PopularMovies_1-master\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_99fa8ec93f2892ee24a2b5dfe1079868aa7a9d50\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Maryline\.android\build-cache\5fac4cee3f54bf0fc21c8708b4338e34869b581d\output\jars\classes.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="C:\Users\Maryline\.android\build-cache\7b15cc94672523eb014cd2fdd61c3805e1d79062\output\jars\classes.jar"
+        jumboMode="false"
         optimize="true"
         revision="25.0.2"
         sha1="e2719c102dca3a7a5b02ce07f769362da6ddb4ab">
-        <dex dex="C:\Users\Maryline\Desktop\PopularMovies_1-master\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_8340530b39faf4cd25456940ac39341429ae0e1f\classes.dex" />
+        <dex dex="C:\Users\Maryline\Desktop\PopularMovies_1-master\app\build\intermediates\pre-dexed\debug\classes_09310ca89b65fbdf6bed3213827e58d320e20194.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Maryline\.android\build-cache\438ca7156ca4ffaf8efbbe66aaff46e14d96d941\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="0d191c1a09e4892d059e5ce749e4ad4e08129e35">
+        <dex dex="C:\Users\Maryline\Desktop\PopularMovies_1-master\app\build\intermediates\pre-dexed\debug\classes_4104871f64c293d7c60219dd45ad4eb612c1b2cc.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Maryline\.gradle\caches\modules-2\files-2.1\com.squareup.picasso\picasso\2.5.2\7446d06ec8d4f7ffcc53f1da37c95f200dcb9387\picasso-2.5.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
+        <dex dex="C:\Users\Maryline\Desktop\PopularMovies_1-master\app\build\intermediates\pre-dexed\debug\picasso-2.5.2_b3afe5a2ba2d6eb5a0308e54ef355c270ac67a70.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Maryline\.android\build-cache\67bb33e6be52e88a3473e92750ec976e80482859\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="7bde4c34162092e0a77e7f12dc85ed77c484cf5c">
+        <dex dex="C:\Users\Maryline\Desktop\PopularMovies_1-master\app\build\intermediates\pre-dexed\debug\classes_a2723ba803ce2737e30c4b07d73876158fe14a8a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Maryline\.android\build-cache\b2ba111e181a06205e338ac0240b4fa3e27e89cd\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c03bf57f358aa10d253f21989e93bcf6014b3b17">
+        <dex dex="C:\Users\Maryline\Desktop\PopularMovies_1-master\app\build\intermediates\pre-dexed\debug\classes_b6bff8f4655780d6200b84fbcc8acd4a4dfcb100.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Maryline\.android\build-cache\48b5fea56d97bd436b0a1e32d54307abf0a7b04e\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="3e04ac8ca644ea7baddf6fdcf72e15c79e9df94a">
+        <dex dex="C:\Users\Maryline\Desktop\PopularMovies_1-master\app\build\intermediates\pre-dexed\debug\classes_af222b6cba39d6ceca730ba9caf289f8f7178dc7.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Maryline\.android\build-cache\0bef3c7423c2fa17f0a4096d52aa969fcf7c6a75\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="0fb891e8f0cfba0513043a7bb357513d229ca2cd">
+        <dex dex="C:\Users\Maryline\Desktop\PopularMovies_1-master\app\build\intermediates\pre-dexed\debug\classes_621686ccf19c7ce5e6616ebef98a4b858c7d2b60.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Maryline\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\25.1.1\support-annotations-25.1.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="b59b6ee8d6ecc03e672d253800430343493a6ed8">
+        <dex dex="C:\Users\Maryline\Desktop\PopularMovies_1-master\app\build\intermediates\pre-dexed\debug\support-annotations-25.1.1_cf1d866ecfda3a249e1261c8655dee87812cfd34.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Maryline\.gradle\caches\modules-2\files-2.1\com.mcxiaoke.volley\library\1.0.19\a8f23f65fc1e522ee4a1a697ee569901a46741fa\library-1.0.19.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="a8f23f65fc1e522ee4a1a697ee569901a46741fa">
+        <dex dex="C:\Users\Maryline\Desktop\PopularMovies_1-master\app\build\intermediates\pre-dexed\debug\library-1.0.19_c66b1e7b5cc4a4d36643ad7956371ccb094b8587.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Maryline\.android\build-cache\321dc1a0ada66e721f80e4e608b23cb7c18d0643\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="C:\Users\Maryline\Desktop\PopularMovies_1-master\app\build\intermediates\pre-dexed\debug\classes_a105b78face116b555adb5c066b7568a0a0e0770.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Maryline\.android\build-cache\2777c3beccbe69165c42a5fc1580ea78f9dd5cc0\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="02741d05d4b697fba5e279e9881aaa1da0ca7c7f">
+        <dex dex="C:\Users\Maryline\Desktop\PopularMovies_1-master\app\build\intermediates\pre-dexed\debug\classes_d3238a71f92cd4692cba2e9649e9dcbfc6ee394c.jar" />
     </item>
 
 </items>

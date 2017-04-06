@@ -84,7 +84,6 @@
 
                     </LinearLayout>
 
-
             <RatingBar
                 android:paddingTop="8dp"
                 android:id="@+id/vote_average"
@@ -95,14 +94,11 @@
                 style="@style/foodRatingBar" />
 
 
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
                 android:id="@+id/vote_average_2"/>
-
-
 
 
         </LinearLayout>

@@ -1,26 +1,18 @@
 package com.example.android.popularmovies1;
 
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.FloatRange;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebView;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -31,7 +23,6 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.android.popularmovies1.data.MoviesContentProvider;
@@ -50,6 +41,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.R.attr.id;
+import static android.R.attr.textColorHighlight;
 import static android.R.id.input;
 import static android.R.id.title;
 import static com.example.android.popularmovies1.R.id.release_date;
@@ -67,9 +59,8 @@ public class ChildActivity extends AppCompatActivity {
 
     WebView mReviewsList;
     RecyclerView mVideosList;
-    VideoAdapter videoAdapter;
 
-    //VideoAdapter videoAdapter;
+    VideoAdapter videoAdapter;
 
     ImageView movieDisplay;
     TextView originalTitle_tv;
@@ -114,6 +105,7 @@ public class ChildActivity extends AppCompatActivity {
                 String moviePath = movie.getMoviePath();
                 String id = movie.getId();
 
+
                 originalTitle_tv.setText(movie.getOriginalTitle());
                 originalTitle_tv_2.setText(movie.getOriginalTitle());
                 releaseDate_tv.setText(movie.getReleaseDate().substring(0,4));
@@ -133,11 +125,10 @@ public class ChildActivity extends AppCompatActivity {
         mReviewsList = (WebView) findViewById(R.id.wv_reviews);
         mVideosList = (RecyclerView) findViewById(R.id.rv_videos);
 
+        //videoAdapter = new VideoAdapter(this);
 
-        //videoAdapter = new VideoAdapter();
 
-
-       // mVideosList.setAdapter(videoAdapter);
+       mVideosList.setAdapter(videoAdapter);
 
         //makeTheQueryVideos();
         makeTheQueryReviews();
@@ -145,6 +136,7 @@ public class ChildActivity extends AppCompatActivity {
     }
 
     public void makeTheQueryVideos(){
+
         URL SearchUrl = NetworkUtils.buildUrlVideo(id);
         String searchUrl = SearchUrl.toString();
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -258,6 +250,8 @@ public class ChildActivity extends AppCompatActivity {
 
     public void OnClickAddFavorite(View view){
 
+        Context context = ChildActivity.this;
+
         ContentValues contentValues = new ContentValues();
 
         contentValues.put(COLUMN_TITLE, movie.getOriginalTitle());
@@ -265,7 +259,7 @@ public class ChildActivity extends AppCompatActivity {
         contentValues.put(MoviesContract.MovieslistEntry.COLUMN_USER_RATING, movie.getUserRating());
         contentValues.put(MoviesContract.MovieslistEntry.COLUMN_RELEASE_DATE, movie.getReleaseDate());
 
-        Uri uri = getContentResolver().insert(MoviesContract.MovieslistEntry.CONTENT_URI, contentValues);
+        //Uri uri = getContentResolver().insert(MoviesContract.MovieslistEntry.CONTENT_URI, contentValues);
 
 
         ToggleButton  ToggleButton = (ToggleButton) findViewById(R.id.favourite_button);
