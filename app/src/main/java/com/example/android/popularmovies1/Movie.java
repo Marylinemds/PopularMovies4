@@ -102,6 +102,8 @@ public class Movie implements Parcelable{
         dest.writeString(this.userRating);
         dest.writeString(this.releaseDate);
         dest.writeString(this.picSize);
+        dest.writeString(this.id);
+
     }
 
     protected Movie(Parcel in) {
@@ -111,6 +113,7 @@ public class Movie implements Parcelable{
         this.userRating = in.readString();
         this.releaseDate = in.readString();
         this.picSize = in.readString();
+        this.id = in.readString();
     }
 
     public static final Creator<Movie> CREATOR = new Creator<Movie>() {

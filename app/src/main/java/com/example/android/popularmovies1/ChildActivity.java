@@ -39,6 +39,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static android.R.attr.id;
 import static android.R.attr.textColorHighlight;
@@ -55,7 +57,7 @@ import static com.example.android.popularmovies1.data.MoviesContract.MovieslistE
  * Created by Maryline on 2/22/2017.
  */
 
-public class ChildActivity extends AppCompatActivity {
+public class ChildActivity extends AppCompatActivity implements VideoAdapter.ListItemClickHandler {
 
     WebView mReviewsList;
     RecyclerView mVideosList;
@@ -75,6 +77,7 @@ public class ChildActivity extends AppCompatActivity {
 
     private SQLiteDatabase mDb;
     List<Video> videos = new ArrayList<>();
+    List<Review> reviews = new ArrayList<>();
 
     MoviesDbHelper mMoviesDbHelper;
 
@@ -102,8 +105,10 @@ public class ChildActivity extends AppCompatActivity {
         if (startChildActivityIntent != null) {
             if (startChildActivityIntent.hasExtra("MyClass")) {
                movie = startChildActivityIntent.getParcelableExtra("MyClass");
+
                 String moviePath = movie.getMoviePath();
                 String id = movie.getId();
+                System.out.println("blabla " + id );
 
 
                 originalTitle_tv.setText(movie.getOriginalTitle());
@@ -125,12 +130,12 @@ public class ChildActivity extends AppCompatActivity {
         mReviewsList = (WebView) findViewById(R.id.wv_reviews);
         mVideosList = (RecyclerView) findViewById(R.id.rv_videos);
 
-        //videoAdapter = new VideoAdapter(this);
+        videoAdapter = new VideoAdapter(this);
 
 
        mVideosList.setAdapter(videoAdapter);
 
-        //makeTheQueryVideos();
+        makeTheQueryVideos();
         makeTheQueryReviews();
 
     }
@@ -186,8 +191,9 @@ public class ChildActivity extends AppCompatActivity {
 
 
     public void makeTheQueryReviews(){
-        URL SearchUrl = NetworkUtils.buildUrlVideo(id);
+        URL SearchUrl = NetworkUtils.buildUrlReviews(movie.getId());
         String searchUrl = SearchUrl.toString();
+        System.out.println("blabla " + SearchUrl);
         RequestQueue queue = Volley.newRequestQueue(this);
 
 // Request a string response from the provided URL.
@@ -214,7 +220,10 @@ public class ChildActivity extends AppCompatActivity {
                                     review.setAuthor(author);
                                     review.setContent(content);
 
-                                    mReviewsList.loadData(content, "text/html; charset=UTF-8", null);
+                                    reviews.add(review);
+
+
+                                    mReviewsList.loadData(content, "text/html", "charset=UTF-8");
                                 }
 
                         } catch (JSONException e) {
@@ -285,4 +294,15 @@ public class ChildActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onClick(String mVideoId) {
+        // open video Youtube
+
+        Matcher matcher = Pattern.compile("http://www.youtube.com/embed/").matcher(mVideoId);
+        matcher.find();
+        Intent VideoIntent = new Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("ytv://" + mVideoId));
+        startActivity(VideoIntent);
+    }
 }

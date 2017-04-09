@@ -94,21 +94,17 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ImageViewHol
             @Override
             public void onClick(View view) {
                 int clickedPosition = getAdapterPosition();
-                mOnClickHandler.onClick(clickedPosition);
-
                 Video video = videos.get(clickedPosition);
                 String mVideoId = video.getKey();
-                Matcher matcher = Pattern.compile("http://www.youtube.com/embed/").matcher(mVideoId);
-                matcher.find();
-                Intent VideoIntent = new Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse("ytv://" + mVideoId));
-                view.getContext().startActivity(VideoIntent);
+                mOnClickHandler.onClick(mVideoId);
+
+
+
             }
         }
 
         public interface ListItemClickHandler{
-            void onClick(int clickedItemIndex);
+            void onClick(String videoKey);
         }
 
         public void swapCursor(Cursor newCursor) {

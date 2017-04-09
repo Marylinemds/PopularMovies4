@@ -52,10 +52,14 @@ public class Review implements Parcelable{
 
 
     protected Review(Parcel in) {
+        this.author = in.readString();
+        this.content = in.readString();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.author);
+        dest.writeString(this.content);
     }
 
     @Override
