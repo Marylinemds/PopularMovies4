@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.FloatRange;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.webkit.WebView;
@@ -99,7 +100,6 @@ public class ChildActivity extends AppCompatActivity implements VideoAdapter.Lis
         sypnosis_tv = (TextView) findViewById(sypnosis);
 
 
-
         Intent startChildActivityIntent = getIntent();
 
         if (startChildActivityIntent != null) {
@@ -107,7 +107,7 @@ public class ChildActivity extends AppCompatActivity implements VideoAdapter.Lis
                movie = startChildActivityIntent.getParcelableExtra("MyClass");
 
                 String moviePath = movie.getMoviePath();
-                String id = movie.getId();
+                id = movie.getId();
                 System.out.println("blabla " + id );
 
 
@@ -129,6 +129,8 @@ public class ChildActivity extends AppCompatActivity implements VideoAdapter.Lis
 
         mReviewsList = (WebView) findViewById(R.id.wv_reviews);
         mVideosList = (RecyclerView) findViewById(R.id.rv_videos);
+
+        mVideosList.setLayoutManager(new LinearLayoutManager(this));
 
         videoAdapter = new VideoAdapter(this);
 
@@ -155,7 +157,7 @@ public class ChildActivity extends AppCompatActivity implements VideoAdapter.Lis
                             try {
 
                                 JSONObject objJSON = new JSONObject(JSONData);
-                                JSONArray results = objJSON.getJSONArray("Results");
+                                JSONArray results = objJSON.getJSONArray("results");
                                 Video video;
 
                                 for (int i = 0; i < results.length(); i++) {
@@ -168,6 +170,7 @@ public class ChildActivity extends AppCompatActivity implements VideoAdapter.Lis
                                     video = new Video();
                                     video.setKey(key);
                                     video.setVideoName(videoName);
+                                    videos.add(video);
 
                                 }
 
