@@ -70,7 +70,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ImageViewHol
 
         String baseUrl = "https://img.youtube.com/vi/";
 
-        Picasso.with(context).load(baseUrl + key + "/1.jpg").into(viewHolder.videoThumbnail);
+        Picasso.with(context).load(baseUrl + key + "/0.jpg").into(viewHolder.videoThumbnail);
     }
 
         @Override

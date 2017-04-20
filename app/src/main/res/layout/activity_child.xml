@@ -18,8 +18,8 @@
         android:id="@+id/movie_title"
         android:paddingTop="20dp"
         android:paddingBottom="20dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
         android:textColor="#FFFFFF"
         android:background="#0097A7"/>
 
@@ -30,7 +30,7 @@
 
 
             <ImageView
-                android:padding="15dp"
+                android:padding="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/display_movie"/>
@@ -40,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="15dp">
+            android:padding="16dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -115,14 +115,11 @@
         android:layout_height="wrap_content"
         android:id="@+id/sypnosis"
         android:textSize="16sp"
-        android:padding="15dp"/>
-
-
-
-
+        android:padding="16dp"/>
 
 
     <android.support.v7.widget.RecyclerView
+        android:padding="16dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/rv_videos">
@@ -131,8 +128,9 @@
 
         <WebView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/wv_reviews">
+            android:layout_height="wrap_content"
+            android:id="@+id/wv_reviews"
+            android:layout_margin="16dp">
 
         </WebView>
 

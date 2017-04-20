@@ -3,6 +3,7 @@ package com.example.android.popularmovies1;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
@@ -130,7 +131,16 @@ public class ChildActivity extends AppCompatActivity implements VideoAdapter.Lis
         mReviewsList = (WebView) findViewById(R.id.wv_reviews);
         mVideosList = (RecyclerView) findViewById(R.id.rv_videos);
 
-        mVideosList.setLayoutManager(new LinearLayoutManager(this));
+        GridLayoutManager layoutManager;
+
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            layoutManager = new GridLayoutManager(this, 3);
+        } else {
+            layoutManager = new GridLayoutManager(this, 4);
+        }
+
+        mVideosList.setLayoutManager(layoutManager);
+
 
         videoAdapter = new VideoAdapter(this);
 
@@ -185,7 +195,7 @@ public class ChildActivity extends AppCompatActivity implements VideoAdapter.Lis
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                mReviewsList.loadData("error", "text/html; charset=UTF-8", null);
+
             }
         });
 // Add the request to the RequestQueue.
@@ -211,6 +221,7 @@ public class ChildActivity extends AppCompatActivity implements VideoAdapter.Lis
                                 JSONObject objJSON = new JSONObject(JSONData);
                                 JSONArray results = objJSON.getJSONArray("results");
                                 Review review;
+                                String sumOfReviews = "";
 
                                 for (int i = 0; i < results.length(); i++) {
 
@@ -218,8 +229,9 @@ public class ChildActivity extends AppCompatActivity implements VideoAdapter.Lis
 
                                     String content = resultsData.getString("content");
                                     String author = resultsData.getString("author");
+                                    sumOfReviews = sumOfReviews + "<p><b>" + author + ": </b>"
+                                            + content + " <p><hr />";
 
-                                    System.out.println("bloblo" + content);
 
                                     review = new Review();
                                     review.setAuthor(author);
@@ -228,7 +240,7 @@ public class ChildActivity extends AppCompatActivity implements VideoAdapter.Lis
                                     reviews.add(review);
 
 
-                                    mReviewsList.loadData(content, "text/html", "UTF-8");
+                                    mReviewsList.loadData("<html><body>" + sumOfReviews + "</body></html>", "text/html", "UTF-8");
                                 }
 
                         } catch (JSONException e) {
