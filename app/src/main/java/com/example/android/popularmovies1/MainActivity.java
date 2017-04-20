@@ -196,7 +196,6 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
             try {
                 movieData = NetworkUtils.getResponseFromHttpUrl(url);
 
-
             } catch (IOException e) {
                 e.printStackTrace();
             }

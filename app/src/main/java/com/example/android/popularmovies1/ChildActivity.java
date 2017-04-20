@@ -209,7 +209,7 @@ public class ChildActivity extends AppCompatActivity implements VideoAdapter.Lis
                             try {
 
                                 JSONObject objJSON = new JSONObject(JSONData);
-                                JSONArray results = objJSON.getJSONArray("Results");
+                                JSONArray results = objJSON.getJSONArray("results");
                                 Review review;
 
                                 for (int i = 0; i < results.length(); i++) {
@@ -219,6 +219,8 @@ public class ChildActivity extends AppCompatActivity implements VideoAdapter.Lis
                                     String content = resultsData.getString("content");
                                     String author = resultsData.getString("author");
 
+                                    System.out.println("bloblo" + content);
+
                                     review = new Review();
                                     review.setAuthor(author);
                                     review.setContent(content);
@@ -226,7 +228,7 @@ public class ChildActivity extends AppCompatActivity implements VideoAdapter.Lis
                                     reviews.add(review);
 
 
-                                    mReviewsList.loadData(content, "text/html", "charset=UTF-8");
+                                    mReviewsList.loadData(content, "text/html", "UTF-8");
                                 }
 
                         } catch (JSONException e) {
@@ -237,7 +239,7 @@ public class ChildActivity extends AppCompatActivity implements VideoAdapter.Lis
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                mReviewsList.loadData("error", "text/html; charset=UTF-8", null);
+                mReviewsList.loadData("error", "text/html; UTF-8", null);
             }
         });
 // Add the request to the RequestQueue.
