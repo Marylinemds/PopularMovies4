@@ -276,8 +276,6 @@ public class ChildActivity extends AppCompatActivity implements VideoAdapter.Lis
 
     public void OnClickAddFavorite(View view){
 
-        Context context = ChildActivity.this;
-
         ContentValues contentValues = new ContentValues();
 
         contentValues.put(COLUMN_TITLE, movie.getOriginalTitle());
@@ -319,7 +317,7 @@ public class ChildActivity extends AppCompatActivity implements VideoAdapter.Lis
         matcher.find();
         Intent VideoIntent = new Intent(
                 Intent.ACTION_VIEW,
-                Uri.parse("ytv://" + mVideoId));
+                Uri.parse("https://www.youtube.com/watch?v=" + mVideoId));
         startActivity(VideoIntent);
     }
 }
