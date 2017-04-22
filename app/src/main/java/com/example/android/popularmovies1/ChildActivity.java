@@ -135,6 +135,8 @@ public class ChildActivity extends AppCompatActivity implements VideoAdapter.Lis
 
         TestUtil.insertFakeData(mDb);
 
+        ToggleButton = (ToggleButton) findViewById(R.id.favourite_button);
+
         if (ExistsInDb(movie.getOriginalTitle())){
             ToggleButton.setActivated(true);
             ToggleButton.setChecked(true);
@@ -302,7 +304,7 @@ public class ChildActivity extends AppCompatActivity implements VideoAdapter.Lis
         //Uri uri = getContentResolver().insert(MoviesContract.CONTENT_URI, contentValues);
 
 
-         ToggleButton = (ToggleButton) findViewById(R.id.favourite_button);
+
 
         if (!ToggleButton.isActivated()){
             Toast.makeText(this, "added to favorites", Toast.LENGTH_SHORT).show();
