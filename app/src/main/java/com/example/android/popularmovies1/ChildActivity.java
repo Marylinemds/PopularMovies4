@@ -1,5 +1,6 @@
 package com.example.android.popularmovies1;
 
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -133,7 +134,7 @@ public class ChildActivity extends AppCompatActivity implements VideoAdapter.Lis
         mMoviesDbHelper = new MoviesDbHelper(this);
         mDb = mMoviesDbHelper.getWritableDatabase();
 
-        TestUtil.insertFakeData(mDb);
+        //TestUtil.insertFakeData(mDb);
 
         ToggleButton = (ToggleButton) findViewById(R.id.favourite_button);
 
@@ -301,38 +302,36 @@ public class ChildActivity extends AppCompatActivity implements VideoAdapter.Lis
         contentValues.put(MoviesContract.MovieslistEntry.COLUMN_USER_RATING, movie.getUserRating());
         contentValues.put(MoviesContract.MovieslistEntry.COLUMN_RELEASE_DATE, movie.getReleaseDate());
 
-        //Uri uri = getContentResolver().insert(MoviesContract.CONTENT_URI, contentValues);
+        ContentResolver contentResolver = getContentResolver();
+
+        String id = getContentResolver().insert(MoviesContract.CONTENT_URI, contentValues).getPathSegments().get(1);;
+        Uri uri = MoviesContract.CONTENT_URI.buildUpon().appendPath(id).build();
+        System.out.println(uri);
 
 
 
 
         if (!ToggleButton.isActivated()){
 
-            mDb.insert(TABLE_NAME, null, contentValues);
+            contentResolver.insert(uri, contentValues);
 
             ToggleButton.setActivated(true);
             ToggleButton.setChecked(true);
             Toast.makeText(this, "added to favorites", Toast.LENGTH_SHORT).show();
 
-
-
-
         }else{
 
-            mDb.delete(TABLE_NAME, MoviesContract.MovieslistEntry._ID + "=" + id ,null);
+
+            contentResolver.delete(uri,null,null);
             ToggleButton.setActivated(false);
             ToggleButton.setChecked(false);
 
             Toast.makeText(this, "removed from favorites", Toast.LENGTH_SHORT).show();
 
-
-
         }
 
 
     }
-
-
 
     @Override
     public void onClick(String mVideoId) {

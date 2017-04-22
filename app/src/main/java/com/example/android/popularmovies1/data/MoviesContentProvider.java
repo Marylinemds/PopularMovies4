@@ -30,7 +30,7 @@ public class MoviesContentProvider extends ContentProvider {
         UriMatcher UriMatcher = new UriMatcher(android.content.UriMatcher.NO_MATCH);
 
         UriMatcher.addURI(MoviesContract.AUTHORITY, MoviesContract.PATH_FAVORITE, FAVORITES);
-        UriMatcher.addURI(MoviesContract.AUTHORITY, MoviesContract.PATH_FAVORITE + "/#", FAVORITE_WITH_ID);
+        UriMatcher.addURI(MoviesContract.AUTHORITY, MoviesContract.PATH_FAVORITE + "/*", FAVORITE_WITH_ID);
 
         return UriMatcher;
 

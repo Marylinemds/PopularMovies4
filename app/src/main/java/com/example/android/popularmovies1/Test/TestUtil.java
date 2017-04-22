@@ -56,7 +56,7 @@ public class TestUtil {
         {
             db.beginTransaction();
             //clear the table first
-            db.delete (MoviesContract.MovieslistEntry.TABLE_NAME,null,null);
+            //db.delete (MoviesContract.MovieslistEntry.TABLE_NAME,null,null);
             //go through the list and add one by one
             for(ContentValues c:list){
                 db.insert(MoviesContract.MovieslistEntry.TABLE_NAME, null, c);
