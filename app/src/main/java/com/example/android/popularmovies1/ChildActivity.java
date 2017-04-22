@@ -306,6 +306,7 @@ public class ChildActivity extends AppCompatActivity implements VideoAdapter.Lis
 
         String id = getContentResolver().insert(MoviesContract.CONTENT_URI, contentValues).getPathSegments().get(1);;
         Uri uri = MoviesContract.CONTENT_URI.buildUpon().appendPath(id).build();
+        Uri uri2 = MoviesContract.CONTENT_URI;
         System.out.println(uri);
 
 
@@ -313,7 +314,7 @@ public class ChildActivity extends AppCompatActivity implements VideoAdapter.Lis
 
         if (!ToggleButton.isActivated()){
 
-            contentResolver.insert(uri, contentValues);
+            contentResolver.insert(uri2, contentValues);
 
             ToggleButton.setActivated(true);
             ToggleButton.setChecked(true);
