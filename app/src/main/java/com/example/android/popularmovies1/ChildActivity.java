@@ -307,20 +307,25 @@ public class ChildActivity extends AppCompatActivity implements VideoAdapter.Lis
 
 
         if (!ToggleButton.isActivated()){
-            Toast.makeText(this, "added to favorites", Toast.LENGTH_SHORT).show();
-            ToggleButton.setActivated(true);
-            ToggleButton.setChecked(true);
 
             mDb.insert(TABLE_NAME, null, contentValues);
+
+            ToggleButton.setActivated(true);
+            ToggleButton.setChecked(true);
+            Toast.makeText(this, "added to favorites", Toast.LENGTH_SHORT).show();
+
 
 
 
         }else{
-            Toast.makeText(this, "removed from favorites", Toast.LENGTH_SHORT).show();
+
+            mDb.delete(TABLE_NAME, MoviesContract.MovieslistEntry._ID + "=" + id ,null);
             ToggleButton.setActivated(false);
             ToggleButton.setChecked(false);
 
-            mDb.delete(TABLE_NAME, MoviesContract.MovieslistEntry._ID + "=" + id ,null);
+            Toast.makeText(this, "removed from favorites", Toast.LENGTH_SHORT).show();
+
+
 
         }
 
