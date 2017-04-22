@@ -282,7 +282,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
         // [Hint] use a try/catch block to catch any errors in loading data
 
         try {
-            return getContentResolver().query(MoviesContract.MovieslistEntry.CONTENT_URI,
+            return getContentResolver().query(MoviesContract.CONTENT_URI,
                     null,
                     null,
                     null,

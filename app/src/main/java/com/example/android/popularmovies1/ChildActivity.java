@@ -78,6 +78,8 @@ public class ChildActivity extends AppCompatActivity implements VideoAdapter.Lis
     Movie movie;
     RatingBar voteAverage_rb;
 
+    ToggleButton ToggleButton;
+
     String voteAverage;
 
     private SQLiteDatabase mDb;
@@ -133,6 +135,11 @@ public class ChildActivity extends AppCompatActivity implements VideoAdapter.Lis
 
         TestUtil.insertFakeData(mDb);
 
+        if (ExistsInDb(movie.getOriginalTitle())){
+            ToggleButton.setActivated(true);
+            ToggleButton.setChecked(true);
+        }
+
         mReviewsList = (WebView) findViewById(R.id.wv_reviews);
         mVideosList = (RecyclerView) findViewById(R.id.rv_videos);
 
@@ -157,6 +164,7 @@ public class ChildActivity extends AppCompatActivity implements VideoAdapter.Lis
 
         makeTheQueryVideos();
         makeTheQueryReviews();
+
 
     }
 
@@ -294,7 +302,7 @@ public class ChildActivity extends AppCompatActivity implements VideoAdapter.Lis
         //Uri uri = getContentResolver().insert(MoviesContract.CONTENT_URI, contentValues);
 
 
-        ToggleButton  ToggleButton = (ToggleButton) findViewById(R.id.favourite_button);
+         ToggleButton = (ToggleButton) findViewById(R.id.favourite_button);
 
         if (!ToggleButton.isActivated()){
             Toast.makeText(this, "added to favorites", Toast.LENGTH_SHORT).show();
