@@ -23,13 +23,14 @@ import static com.example.android.popularmovies1.R.layout.movieitem;
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ImageViewHolder>{
 
     final private ListItemClickHandler mOnClickHandler;
-    public Cursor mCursor;
+    private Cursor mCursor;
 
 
     List<Movie> movies;
 
-    public MovieAdapter(ListItemClickHandler listener) {
-    mOnClickHandler = listener;
+    public MovieAdapter(ListItemClickHandler listener, Cursor cursor) {
+        mOnClickHandler = listener;
+        this.mCursor = cursor;
     }
 
     public List<Movie> getMovies() {
@@ -75,7 +76,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ImageViewHol
     @Override
     public int getItemCount() {
         //return cuantos item en Json array
-        return movies == null ? 0 : movies.size();
+        return mCursor.getCount();
     }
 
     public class ImageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{

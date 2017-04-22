@@ -27,6 +27,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.android.popularmovies1.Test.TestUtil;
 import com.example.android.popularmovies1.data.MoviesContentProvider;
 import com.example.android.popularmovies1.data.MoviesContract;
 import com.example.android.popularmovies1.data.MoviesDbHelper;
@@ -51,6 +52,7 @@ import static android.R.id.title;
 import static com.example.android.popularmovies1.R.id.release_date;
 import static com.example.android.popularmovies1.R.id.sypnosis;
 import static com.example.android.popularmovies1.R.id.vote_average;
+import static com.example.android.popularmovies1.data.MoviesContract.MovieslistEntry.COLUMN_RELEASE_DATE;
 import static com.example.android.popularmovies1.data.MoviesContract.MovieslistEntry.COLUMN_TITLE;
 import static com.example.android.popularmovies1.data.MoviesContract.MovieslistEntry.TABLE_NAME;
 
@@ -127,6 +129,8 @@ public class ChildActivity extends AppCompatActivity implements VideoAdapter.Lis
 
         mMoviesDbHelper = new MoviesDbHelper(this);
         mDb = mMoviesDbHelper.getWritableDatabase();
+
+        TestUtil.insertFakeData(mDb);
 
         mReviewsList = (WebView) findViewById(R.id.wv_reviews);
         mVideosList = (RecyclerView) findViewById(R.id.rv_videos);
@@ -283,7 +287,7 @@ public class ChildActivity extends AppCompatActivity implements VideoAdapter.Lis
         contentValues.put(MoviesContract.MovieslistEntry.COLUMN_USER_RATING, movie.getUserRating());
         contentValues.put(MoviesContract.MovieslistEntry.COLUMN_RELEASE_DATE, movie.getReleaseDate());
 
-        //Uri uri = getContentResolver().insert(MoviesContract.MovieslistEntry.CONTENT_URI, contentValues);
+        //Uri uri = getContentResolver().insert(MoviesContract.CONTENT_URI, contentValues);
 
 
         ToggleButton  ToggleButton = (ToggleButton) findViewById(R.id.favourite_button);
@@ -307,6 +311,7 @@ public class ChildActivity extends AppCompatActivity implements VideoAdapter.Lis
 
 
     }
+
 
 
     @Override

@@ -119,7 +119,7 @@ public class MoviesContentProvider extends ContentProvider {
 
                 long id = db.insert(TABLE_NAME, null, values);
                 if ( id > 0 ) {
-                    returnUri = ContentUris.withAppendedId(MoviesContract.MovieslistEntry.CONTENT_URI, id);
+                    returnUri = ContentUris.withAppendedId(MoviesContract.CONTENT_URI, id);
                 } else {
                     throw new android.database.SQLException("Failed to insert row into " + uri);
                 }

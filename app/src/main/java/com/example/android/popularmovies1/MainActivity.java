@@ -41,7 +41,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import static com.example.android.popularmovies1.data.MoviesContract.MovieslistEntry.COLUMN_RELEASE_DATE;
+import static com.example.android.popularmovies1.data.MoviesContract.MovieslistEntry.TABLE_NAME;
 
 
 public class MainActivity extends AppCompatActivity implements MovieAdapter.ListItemClickHandler {
@@ -68,11 +69,11 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
 
         MoviesDbHelper dbHelper = new MoviesDbHelper(this);
 
-        if (mDb != null) {
+
 
             mDb = dbHelper.getWritableDatabase();
-        }
-        
+
+
 
         toggle = (ToggleButton) findViewById(R.id.favourite_button);
 
@@ -89,9 +90,15 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
         mMoviesList.setLayoutManager(layoutManager);
 
 
-        movieAdapter = new MovieAdapter(this);
+        Cursor cursor = getAllFavorites();
+
+
+
+        movieAdapter = new MovieAdapter(this, cursor);
 
         mMoviesList.setAdapter(movieAdapter);
+
+        movieAdapter.swapCursor(getAllFavorites());
 
         makeTheQuery();
 
@@ -278,33 +285,47 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
                 }
             }
 
-    public Cursor loadInBackground() {
-        // Will implement to load data
+            public Cursor loadInBackground() {
+                // Will implement to load data
 
-        // COMPLETED (5) Query and load all task data in the background; sort by priority
-        // [Hint] use a try/catch block to catch any errors in loading data
+                // COMPLETED (5) Query and load all task data in the background; sort by priority
+                // [Hint] use a try/catch block to catch any errors in loading data
 
-        try {
-            return getContentResolver().query(MoviesContract.MovieslistEntry.CONTENT_URI,
+                try {
+                    return getContentResolver().query(MoviesContract.CONTENT_URI,
+                            null,
+                            null,
+                            null,
+                            MoviesContract.MovieslistEntry.COLUMN_USER_RATING);
+
+                } catch (Exception e) {
+                    Log.e(TAG, "Failed to asynchronously load data.");
+                    e.printStackTrace();
+                    return null;
+                }
+            }
+
+            // deliverResult sends the result of the load, a Cursor, to the registered listener
+            public void deliverResult(Cursor data) {
+                mMovieData = data;
+                super.deliverResult(data);
+            }
+        };
+
+    }
+
+    private Cursor getAllFavorites() {
+
+
+            return mDb.query(
+                    TABLE_NAME,
                     null,
                     null,
                     null,
-                    MoviesContract.MovieslistEntry.COLUMN_USER_RATING);
-
-        } catch (Exception e) {
-            Log.e(TAG, "Failed to asynchronously load data.");
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    // deliverResult sends the result of the load, a Cursor, to the registered listener
-    public void deliverResult(Cursor data) {
-         mMovieData = data;
-        super.deliverResult(data);
-    }
-};
+                    null,
+                    null,
+                    COLUMN_RELEASE_DATE
+            );
 
     }
-
 }
