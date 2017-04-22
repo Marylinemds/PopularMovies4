@@ -26,10 +26,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ImageViewHol
     private Cursor mCursor;
 
 
+
     List<Movie> movies;
 
     public MovieAdapter(ListItemClickHandler listener, Cursor cursor) {
-        mOnClickHandler = listener;
+    mOnClickHandler = listener;
         this.mCursor = cursor;
     }
 
@@ -65,6 +66,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ImageViewHol
         // coger los datos del API y meterlos al imageview del viewholder
         Context context = viewHolder.poster.getContext();
 
+
         Movie movie = movies.get(position);
 
         String moviePath = movie.getMoviePath();
@@ -76,7 +78,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ImageViewHol
     @Override
     public int getItemCount() {
         //return cuantos item en Json array
-        return mCursor.getCount();
+        return movies == null ? 0 : movies.size();
     }
 
     public class ImageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{

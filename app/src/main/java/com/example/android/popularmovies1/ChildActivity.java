@@ -61,12 +61,13 @@ import static com.example.android.popularmovies1.data.MoviesContract.MovieslistE
  * Created by Maryline on 2/22/2017.
  */
 
-public class ChildActivity extends AppCompatActivity implements VideoAdapter.ListItemClickHandler {
+public class ChildActivity extends AppCompatActivity implements VideoAdapter.ListItemClickHandler{
 
     WebView mReviewsList;
     RecyclerView mVideosList;
 
     VideoAdapter videoAdapter;
+
 
     ImageView movieDisplay;
     TextView originalTitle_tv;
@@ -147,6 +148,9 @@ public class ChildActivity extends AppCompatActivity implements VideoAdapter.Lis
 
 
         videoAdapter = new VideoAdapter(this);
+
+        Cursor cursor = getAllFavorites();
+
 
 
        mVideosList.setAdapter(videoAdapter);
@@ -300,6 +304,7 @@ public class ChildActivity extends AppCompatActivity implements VideoAdapter.Lis
             mDb.insert(TABLE_NAME, null, contentValues);
 
 
+
         }else{
             Toast.makeText(this, "removed from favorites", Toast.LENGTH_SHORT).show();
             ToggleButton.setActivated(false);
@@ -324,5 +329,17 @@ public class ChildActivity extends AppCompatActivity implements VideoAdapter.Lis
                 Intent.ACTION_VIEW,
                 Uri.parse("https://www.youtube.com/watch?v=" + mVideoId));
         startActivity(VideoIntent);
+    }
+
+    private Cursor getAllFavorites(){
+        return mDb.query(
+                MoviesContract.MovieslistEntry.TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                MoviesContract.MovieslistEntry.COLUMN_RELEASE_DATE
+        );
     }
 }
