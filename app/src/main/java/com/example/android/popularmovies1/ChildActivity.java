@@ -136,6 +136,7 @@ public class ChildActivity extends AppCompatActivity implements VideoAdapter.Lis
 
         //TestUtil.insertFakeData(mDb);
 
+
         ToggleButton = (ToggleButton) findViewById(R.id.favourite_button);
 
         if (ExistsInDb(movie.getOriginalTitle())){

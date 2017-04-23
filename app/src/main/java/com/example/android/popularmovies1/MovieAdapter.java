@@ -20,7 +20,7 @@ import static com.example.android.popularmovies1.R.layout.movieitem;
  * Created by Maryline on 2/15/2017.
  */
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ImageViewHolder>{
+public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ImageViewHolder> {
 
     final private ListItemClickHandler mOnClickHandler;
     private Cursor mCursor;

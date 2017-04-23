@@ -41,7 +41,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import static com.example.android.popularmovies1.data.MoviesContract.MovieslistEntry.COLUMN_TITLE;
+import static com.example.android.popularmovies1.data.MoviesContract.MovieslistEntry.TABLE_NAME;
 
 
 public class MainActivity extends AppCompatActivity implements MovieAdapter.ListItemClickHandler {
@@ -170,6 +171,22 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
 
         } else if (itemThatWasClickedId == R.id.favorites) {
             Context context = MainActivity.this;
+
+            Movie movie;
+
+            for (int i = 0; i < mNumberItems; i++) {
+                movie = movies.get(i);
+
+                String title = movie.getOriginalTitle();
+
+                if (!ExistsInDb(title)) {
+                    movies.remove(i);
+                }
+            }
+
+
+
+
             String textToShow = "Here is the favorite list";
             Toast.makeText(context, textToShow, Toast.LENGTH_SHORT).show();
 
@@ -314,6 +331,20 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
                 null,
                 MoviesContract.MovieslistEntry.COLUMN_RELEASE_DATE
         );
+    }
+
+    public boolean ExistsInDb(String searchItem){
+
+        String[] columns = {COLUMN_TITLE};
+        String selection = COLUMN_TITLE + " =?";
+        String[] selectionArgs = {searchItem};
+        String limit = "1";
+
+        Cursor cursor = mDb.query(TABLE_NAME, columns, selection, selectionArgs, null, null, null, limit);
+        boolean existsInDb = (cursor.getCount() > 0);
+        cursor.close();
+        return existsInDb;
+
     }
 
 }
