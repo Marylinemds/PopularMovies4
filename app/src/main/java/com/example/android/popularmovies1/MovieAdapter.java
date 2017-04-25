@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.example.android.popularmovies1.data.MoviesContract;
 import com.squareup.picasso.Picasso;
 
 
@@ -24,13 +25,22 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ImageViewHol
 
     final private ListItemClickHandler mOnClickHandler;
     private Cursor mCursor;
+    int count;
 
+    public boolean isFavorite;
 
+    public boolean getFavorite() {
+        return true;
+    }
+
+    public void setFavorite(boolean isFavorite) {
+        this.isFavorite = isFavorite;
+    }
 
     List<Movie> movies;
 
     public MovieAdapter(ListItemClickHandler listener, Cursor cursor) {
-    mOnClickHandler = listener;
+        mOnClickHandler = listener;
         this.mCursor = cursor;
     }
 
@@ -62,23 +72,50 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ImageViewHol
 
     @Override
     public void onBindViewHolder(ImageViewHolder viewHolder, int position) {
-    // try and catch, if not null
-        // coger los datos del API y meterlos al imageview del viewholder
+
         Context context = viewHolder.poster.getContext();
 
+        if (!isFavorite) {
 
-        Movie movie = movies.get(position);
+            Movie movie = movies.get(position);
 
-        String moviePath = movie.getMoviePath();
+            String moviePath = movie.getMoviePath();
 
-        Picasso.with(context).load("http://image.tmdb.org/t/p/" + "w185" + moviePath).into(viewHolder.poster);
+            Picasso.with(context).load("http://image.tmdb.org/t/p/" + "w185" + moviePath).into(viewHolder.poster);
+        } else {
+
+            mCursor.moveToPosition(position);
+        /* Read date from the cursor */
+            int idCol = mCursor.getColumnIndex(MoviesContract.MovieslistEntry.COLUMN_MOVIE_ID);
+            Movie movie = movies.get(position);
+
+
+            while (mCursor.moveToNext()){
+                String id = mCursor.getString(idCol);
+
+
+
+                if (id == movie.getId()){
+
+                    String moviePath = movie.getMoviePath();
+
+                    Picasso.with(context).load("http://image.tmdb.org/t/p/" + "w185" + moviePath).into(viewHolder.poster);
+                }
+            }
+
+
+        }
+        count = mCursor.getCount();
 
     }
 
     @Override
     public int getItemCount() {
-        //return cuantos item en Json array
-        return movies == null ? 0 : movies.size();
+        if (!isFavorite) {
+            return movies == null ? 0 : movies.size();
+        } else {
+            return count;
+        }
     }
 
     public class ImageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{

@@ -1,36 +1,27 @@
 package com.example.android.popularmovies1;
 
 
-import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.database.CharArrayBuffer;
-import android.database.ContentObserver;
 import android.database.Cursor;
-import android.database.DataSetObserver;
 import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.android.popularmovies1.data.MoviesContract;
 import com.example.android.popularmovies1.data.MoviesDbHelper;
 import com.example.android.popularmovies1.utilities.NetworkUtils;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,9 +36,10 @@ import static com.example.android.popularmovies1.data.MoviesContract.MovieslistE
 import static com.example.android.popularmovies1.data.MoviesContract.MovieslistEntry.TABLE_NAME;
 
 
-public class MainActivity extends AppCompatActivity implements MovieAdapter.ListItemClickHandler {
+public class MainActivity extends AppCompatActivity implements MovieAdapter.ListItemClickHandler{
 
     private static final String TAG = MainActivity.class.getSimpleName();
+
 
 
     MovieAdapter movieAdapter;
@@ -57,8 +49,12 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
     private SQLiteDatabase mDb;
 
     List<Movie> movies = new ArrayList<>();
+    List<Movie> favorites;
+
 
     ToggleButton toggle;
+
+    public boolean isFavorite = false;
 
 
     @Override
@@ -70,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
         MoviesDbHelper dbHelper = new MoviesDbHelper(this);
 
 
-            mDb = dbHelper.getWritableDatabase();
+        mDb = dbHelper.getWritableDatabase();
 
         Cursor cursor = getAllFavorites();
 
@@ -93,6 +89,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
         movieAdapter = new MovieAdapter(this, cursor);
 
         mMoviesList.setAdapter(movieAdapter);
+
 
         makeTheQuery();
 
@@ -120,7 +117,11 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
 
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemThatWasClickedId = item.getItemId();
+        isFavorite = movieAdapter.getFavorite();
+
         if (itemThatWasClickedId == R.id.most_popular) {
+
+            movieAdapter.setFavorite(false);
 
             Movie movie;
             Movie movie2;
@@ -146,6 +147,8 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
 
         } else if (itemThatWasClickedId == R.id.highest_rated) {
 
+            movieAdapter.setFavorite(false);
+
             Movie movie;
             Movie movie2;
             for (int i = 0; i < mNumberItems; i++) {
@@ -170,22 +173,14 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
             return true;
 
         } else if (itemThatWasClickedId == R.id.favorites) {
+
+            //makeTheQuery();
+            movieAdapter.setFavorite(true);
+
             Context context = MainActivity.this;
 
-            Movie movie;
-
-            for (int i = 0; i < mNumberItems; i++) {
-                movie = movies.get(i);
-
-                String title = movie.getOriginalTitle();
-
-                if (!ExistsInDb(title)) {
-                    movies.remove(i);
-                }
-            }
-
-
-
+            movieAdapter.setMovies(movies);
+            movieAdapter.notifyDataSetChanged();
 
             String textToShow = "Here is the favorite list";
             Toast.makeText(context, textToShow, Toast.LENGTH_SHORT).show();
@@ -292,32 +287,32 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
                 }
             }
 
-    public Cursor loadInBackground() {
-        // Will implement to load data
+            public Cursor loadInBackground() {
+                // Will implement to load data
 
-        // COMPLETED (5) Query and load all task data in the background; sort by priority
-        // [Hint] use a try/catch block to catch any errors in loading data
+                // COMPLETED (5) Query and load all task data in the background; sort by priority
+                // [Hint] use a try/catch block to catch any errors in loading data
 
-        try {
-            return getContentResolver().query(MoviesContract.CONTENT_URI,
-                    null,
-                    null,
-                    null,
-                    MoviesContract.MovieslistEntry.COLUMN_USER_RATING);
+                try {
+                    return getContentResolver().query(MoviesContract.CONTENT_URI,
+                            null,
+                            null,
+                            null,
+                            MoviesContract.MovieslistEntry.COLUMN_MOVIE_ID);
 
-        } catch (Exception e) {
-            Log.e(TAG, "Failed to asynchronously load data.");
-            e.printStackTrace();
-            return null;
-        }
-    }
+                } catch (Exception e) {
+                    Log.e(TAG, "Failed to asynchronously load data.");
+                    e.printStackTrace();
+                    return null;
+                }
+            }
 
-    // deliverResult sends the result of the load, a Cursor, to the registered listener
-    public void deliverResult(Cursor data) {
-         mMovieData = data;
-        super.deliverResult(data);
-    }
-};
+            // deliverResult sends the result of the load, a Cursor, to the registered listener
+            public void deliverResult(Cursor data) {
+                mMovieData = data;
+                super.deliverResult(data);
+            }
+        };
 
     }
 

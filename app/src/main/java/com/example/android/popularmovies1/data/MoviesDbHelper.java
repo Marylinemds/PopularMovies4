@@ -14,7 +14,7 @@ public class MoviesDbHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "movieslist.db";
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     public MoviesDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -27,7 +27,7 @@ public class MoviesDbHelper extends SQLiteOpenHelper {
                 MovieslistEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 MovieslistEntry.COLUMN_TITLE + " TEXT NOT NULL, " +
                 MovieslistEntry.COLUMN_SYNOPSIS + " TEXT NOT NULL, " +
-                MovieslistEntry.COLUMN_USER_RATING + " TEXT NOT NULL, " +
+                MovieslistEntry.COLUMN_MOVIE_ID + " TEXT NOT NULL, " +
                 MovieslistEntry.COLUMN_RELEASE_DATE + " TEXT NOT NULL" +
                 "); ";
 

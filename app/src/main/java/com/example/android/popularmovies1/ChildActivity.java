@@ -2,17 +2,14 @@ package com.example.android.popularmovies1;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.FloatRange;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.webkit.WebView;
@@ -28,8 +25,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.android.popularmovies1.Test.TestUtil;
-import com.example.android.popularmovies1.data.MoviesContentProvider;
 import com.example.android.popularmovies1.data.MoviesContract;
 import com.example.android.popularmovies1.data.MoviesDbHelper;
 import com.example.android.popularmovies1.utilities.NetworkUtils;
@@ -39,21 +34,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static android.R.attr.id;
-import static android.R.attr.textColorHighlight;
-import static android.R.id.input;
-import static android.R.id.title;
-import static com.example.android.popularmovies1.R.id.release_date;
 import static com.example.android.popularmovies1.R.id.sypnosis;
-import static com.example.android.popularmovies1.R.id.vote_average;
-import static com.example.android.popularmovies1.data.MoviesContract.MovieslistEntry.COLUMN_RELEASE_DATE;
 import static com.example.android.popularmovies1.data.MoviesContract.MovieslistEntry.COLUMN_TITLE;
 import static com.example.android.popularmovies1.data.MoviesContract.MovieslistEntry.TABLE_NAME;
 
@@ -300,7 +287,7 @@ public class ChildActivity extends AppCompatActivity implements VideoAdapter.Lis
 
         contentValues.put(COLUMN_TITLE, movie.getOriginalTitle());
         contentValues.put(MoviesContract.MovieslistEntry.COLUMN_SYNOPSIS, movie.getSynopsis());
-        contentValues.put(MoviesContract.MovieslistEntry.COLUMN_USER_RATING, movie.getUserRating());
+        contentValues.put(MoviesContract.MovieslistEntry.COLUMN_MOVIE_ID, movie.getId());
         contentValues.put(MoviesContract.MovieslistEntry.COLUMN_RELEASE_DATE, movie.getReleaseDate());
 
         ContentResolver contentResolver = getContentResolver();

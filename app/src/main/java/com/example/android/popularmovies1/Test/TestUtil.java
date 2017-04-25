@@ -25,28 +25,28 @@ public class TestUtil {
         ContentValues cv = new ContentValues();
         cv.put(MoviesContract.MovieslistEntry.COLUMN_TITLE, "John");
         cv.put(MoviesContract.MovieslistEntry.COLUMN_RELEASE_DATE,"jwnfwo");
-        cv.put(MoviesContract.MovieslistEntry.COLUMN_USER_RATING,"jwefwfwefwo");
+        cv.put(MoviesContract.MovieslistEntry.COLUMN_MOVIE_ID,"jwefwfwefwo");
         cv.put(MoviesContract.MovieslistEntry.COLUMN_SYNOPSIS,"jwwfwfwfw");
         list.add(cv);
 
         cv = new ContentValues();
         cv.put(MoviesContract.MovieslistEntry.COLUMN_TITLE, "Marta");
         cv.put(MoviesContract.MovieslistEntry.COLUMN_RELEASE_DATE,"11111");
-        cv.put(MoviesContract.MovieslistEntry.COLUMN_USER_RATING,"2222");
+        cv.put(MoviesContract.MovieslistEntry.COLUMN_MOVIE_ID,"2222");
         cv.put(MoviesContract.MovieslistEntry.COLUMN_SYNOPSIS,"33333");
         list.add(cv);
 
         cv = new ContentValues();
         cv.put(MoviesContract.MovieslistEntry.COLUMN_TITLE, "Olivier");
         cv.put(MoviesContract.MovieslistEntry.COLUMN_RELEASE_DATE,"44444");
-        cv.put(MoviesContract.MovieslistEntry.COLUMN_USER_RATING,"5555");
+        cv.put(MoviesContract.MovieslistEntry.COLUMN_MOVIE_ID,"5555");
         cv.put(MoviesContract.MovieslistEntry.COLUMN_SYNOPSIS,"6666");
         list.add(cv);
 
         cv = new ContentValues();
         cv.put(MoviesContract.MovieslistEntry.COLUMN_TITLE, "Chloe");
         cv.put(MoviesContract.MovieslistEntry.COLUMN_RELEASE_DATE,"77777");
-        cv.put(MoviesContract.MovieslistEntry.COLUMN_USER_RATING,"888888888");
+        cv.put(MoviesContract.MovieslistEntry.COLUMN_MOVIE_ID,"888888888");
         cv.put(MoviesContract.MovieslistEntry.COLUMN_SYNOPSIS,"999999999");
         list.add(cv);
 
