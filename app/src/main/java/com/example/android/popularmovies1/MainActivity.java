@@ -54,14 +54,33 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
 
 
 
-    public boolean isFavorite = true;
-    public boolean isTopRated = false;
+    public boolean isFavorite;
+    public boolean isTopRated;
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
+    }
+
+    public boolean isTopRated() {
+        return isTopRated;
+    }
+
+    public void setTopRated(boolean topRated) {
+        isTopRated = topRated;
+    }
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        isFavorite = isFavorite();
+        isTopRated = isTopRated();
 
 
         MoviesDbHelper dbHelper = new MoviesDbHelper(this);
@@ -94,9 +113,8 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
 
 
     @Override
-    public void onClick(int clickedItemIndex) {
+    public void onClick(Movie movie) {
 
-        Movie movie = movies.get(clickedItemIndex);
         Context context = MainActivity.this;
 
         Class destinationActivity = ChildActivity.class;
@@ -114,12 +132,13 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
 
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemThatWasClickedId = item.getItemId();
-        isFavorite = movieAdapter.getFavorite();
+
+
 
         if (itemThatWasClickedId == R.id.most_popular) {
 
-            movieAdapter.setFavorite(false);
-            isTopRated = false;
+            setFavorite(false);
+            setTopRated(false);
             movieAdapter.notifyDataSetChanged();
 
 
@@ -129,8 +148,8 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
 
         } else if (itemThatWasClickedId == R.id.highest_rated) {
 
-            movieAdapter.setFavorite(false);
-            isTopRated = true;
+            setFavorite(false);
+            setTopRated(true);
 
             movieAdapter.notifyDataSetChanged();
             Context context = MainActivity.this;
@@ -141,8 +160,8 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
         } else if (itemThatWasClickedId == R.id.favorites) {
 
 
-            movieAdapter.setFavorite(true);
-            isTopRated = false;
+            setFavorite(true);
+            setTopRated(false);
 
             Context context = MainActivity.this;
 

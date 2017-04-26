@@ -110,13 +110,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ImageViewHol
 
         @Override
         public void onClick(View view) {
-            int clickedPosition = getAdapterPosition();
-            mOnClickHandler.onClick(clickedPosition);
+            int position = getAdapterPosition();
+            Movie movie = movies.get(position);
+            mOnClickHandler.onClick(movie);
         }
     }
 
     public interface ListItemClickHandler{
-        void onClick(int clickedItemIndex);
+        void onClick(Movie movie);
     }
 
     public void swapCursor(Cursor newCursor) {
