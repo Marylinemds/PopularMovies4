@@ -33,6 +33,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.android.popularmovies1.data.MoviesContract.MovieslistEntry.COLUMN_MOVIE_ID;
 import static com.example.android.popularmovies1.data.MoviesContract.MovieslistEntry.COLUMN_TITLE;
 import static com.example.android.popularmovies1.data.MoviesContract.MovieslistEntry.TABLE_NAME;
 
@@ -223,11 +224,13 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
                     //System.out.println("http://image.tmdb.org/t/p/" + picSize + moviePath);
                     JSONObject obj = new JSONObject(jsonData);
                     JSONArray results = obj.getJSONArray("results");
-                    Movie movie;
+
 
                     if (!isFavorite) {
                         //iterate through JSON object and set fields to strings
                         for (int i = 0; i < results.length(); i++) {
+
+                            Movie movie;
 
                             JSONObject resultsData = results.getJSONObject(i);
 
@@ -253,6 +256,9 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
                             movies.add(movie);
 
                             mNumberItems = results.length();
+
+                            movieAdapter.setMovies(movies);
+                            movieAdapter.notifyDataSetChanged();
                         }
 
                     } else {
@@ -269,14 +275,10 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
                             String moviePath = resultsData.getString("poster_path").replace("\\Tasks", "");
                             String picSize = "w185";
 
-                            int j = 0;
 
-                            getAllFavorites().moveToPosition(j);
-                            int idCol = getAllFavorites().getColumnIndex(MoviesContract.MovieslistEntry.COLUMN_MOVIE_ID);
 
-                            while (getAllFavorites().moveToNext()) {
-                                String idMovie = getAllFavorites().getString(idCol);
-                                if (idMovie == id) {
+                                if (ExistsInDb(id)) {
+                                    Movie movie;
 
                                     movie = new Movie();
                                     movie.setMoviePath(moviePath);
@@ -292,16 +294,11 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
 
                                     mNumberItems = results.length();
 
-                                    j++;
                                 }
+                                movieAdapter.setMovies(movies);
+                                movieAdapter.notifyDataSetChanged();
                             }
-
                         }
-
-                        movieAdapter.setMovies(movies);
-                        movieAdapter.notifyDataSetChanged();
-                    }
-
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -376,8 +373,8 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
 
     public boolean ExistsInDb(String searchItem){
 
-        String[] columns = {COLUMN_TITLE};
-        String selection = COLUMN_TITLE + " =?";
+        String[] columns = {COLUMN_MOVIE_ID};
+        String selection = COLUMN_MOVIE_ID+ " =?";
         String[] selectionArgs = {searchItem};
         String limit = "1";
 
