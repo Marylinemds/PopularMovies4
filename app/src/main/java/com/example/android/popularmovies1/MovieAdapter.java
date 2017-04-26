@@ -82,40 +82,18 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ImageViewHol
             String moviePath = movie.getMoviePath();
 
             Picasso.with(context).load("http://image.tmdb.org/t/p/" + "w185" + moviePath).into(viewHolder.poster);
-        } else {
 
-            mCursor.moveToPosition(position);
-        /* Read date from the cursor */
-            int idCol = mCursor.getColumnIndex(MoviesContract.MovieslistEntry.COLUMN_MOVIE_ID);
-            Movie movie = movies.get(position);
-
-
-            while (mCursor.moveToNext()){
-                String id = mCursor.getString(idCol);
-
-
-
-                if (id == movie.getId()){
-
-                    String moviePath = movie.getMoviePath();
-
-                    Picasso.with(context).load("http://image.tmdb.org/t/p/" + "w185" + moviePath).into(viewHolder.poster);
-                }
-            }
 
 
         }
-        count = mCursor.getCount();
+        count = movies.size();
 
     }
 
     @Override
     public int getItemCount() {
-        if (!isFavorite) {
             return movies == null ? 0 : movies.size();
-        } else {
-            return count;
-        }
+
     }
 
     public class ImageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
