@@ -17,11 +17,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-import android.widget.ToggleButton;
+
 
 import com.example.android.popularmovies1.data.MoviesContract;
 import com.example.android.popularmovies1.data.MoviesDbHelper;
 import com.example.android.popularmovies1.utilities.NetworkUtils;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
     List<Movie> favorites;
 
 
-    ToggleButton toggle;
+
 
     public boolean isFavorite = false;
 
@@ -69,10 +70,6 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
         mDb = dbHelper.getWritableDatabase();
 
         Cursor cursor = getAllFavorites();
-
-
-        toggle = (ToggleButton) findViewById(R.id.favourite_button);
-
 
         mMoviesList = (RecyclerView) findViewById(R.id.rv_images);
         GridLayoutManager layoutManager;
@@ -163,7 +160,6 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
                     }
                 }
 
-
             }
 
             movieAdapter.notifyDataSetChanged();
@@ -223,52 +219,99 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
             System.out.println("JSON " + jsonData);
             if (jsonData != null) {
                 try {
+
                     //System.out.println("http://image.tmdb.org/t/p/" + picSize + moviePath);
                     JSONObject obj = new JSONObject(jsonData);
                     JSONArray results = obj.getJSONArray("results");
                     Movie movie;
 
-                    //iterate through JSON object and set fields to strings
-                    for (int i = 0; i < results.length(); i++) {
+                    if (!isFavorite) {
+                        //iterate through JSON object and set fields to strings
+                        for (int i = 0; i < results.length(); i++) {
 
-                        JSONObject resultsData = results.getJSONObject(i);
+                            JSONObject resultsData = results.getJSONObject(i);
 
-                        String originalTitle = resultsData.getString("original_title");
-                        String synopsis = resultsData.getString("overview");
-                        String userRating = resultsData.getString("vote_average");
-                        String releaseDate = resultsData.getString("release_date");
-                        String popularity = resultsData.getString("popularity");
-                        String id = resultsData.getString("id");
-                        String moviePath = resultsData.getString("poster_path").replace("\\Tasks", "");
-                        String picSize = "w185";
+                            String originalTitle = resultsData.getString("original_title");
+                            String synopsis = resultsData.getString("overview");
+                            String userRating = resultsData.getString("vote_average");
+                            String releaseDate = resultsData.getString("release_date");
+                            String popularity = resultsData.getString("popularity");
+                            String id = resultsData.getString("id");
+                            String moviePath = resultsData.getString("poster_path").replace("\\Tasks", "");
+                            String picSize = "w185";
 
-                        movie = new Movie();
-                        movie.setMoviePath(moviePath);
-                        movie.setOriginalTitle(originalTitle);
-                        movie.setPicSize(picSize);
-                        movie.setReleaseDate(releaseDate);
-                        movie.setSynopsis(synopsis);
-                        movie.setUserRating(userRating);
-                        movie.setPopularity(popularity);
-                        movie.setId(id);
+                            movie = new Movie();
+                            movie.setMoviePath(moviePath);
+                            movie.setOriginalTitle(originalTitle);
+                            movie.setPicSize(picSize);
+                            movie.setReleaseDate(releaseDate);
+                            movie.setSynopsis(synopsis);
+                            movie.setUserRating(userRating);
+                            movie.setPopularity(popularity);
+                            movie.setId(id);
 
-                        movies.add(movie);
+                            movies.add(movie);
 
-                        mNumberItems = results.length();
+                            mNumberItems = results.length();
+                        }
 
+                    } else {
+                        for (int i = 0; i < results.length(); i++) {
+
+                            JSONObject resultsData = results.getJSONObject(i);
+
+                            String originalTitle = resultsData.getString("original_title");
+                            String synopsis = resultsData.getString("overview");
+                            String userRating = resultsData.getString("vote_average");
+                            String releaseDate = resultsData.getString("release_date");
+                            String popularity = resultsData.getString("popularity");
+                            String id = resultsData.getString("id");
+                            String moviePath = resultsData.getString("poster_path").replace("\\Tasks", "");
+                            String picSize = "w185";
+
+                            int j = 0;
+
+                            getAllFavorites().moveToPosition(j);
+                            int idCol = getAllFavorites().getColumnIndex(MoviesContract.MovieslistEntry.COLUMN_MOVIE_ID);
+
+                            while (getAllFavorites().moveToNext()) {
+                                String idMovie = getAllFavorites().getString(idCol);
+                                if (idMovie == id) {
+
+                                    movie = new Movie();
+                                    movie.setMoviePath(moviePath);
+                                    movie.setOriginalTitle(originalTitle);
+                                    movie.setPicSize(picSize);
+                                    movie.setReleaseDate(releaseDate);
+                                    movie.setSynopsis(synopsis);
+                                    movie.setUserRating(userRating);
+                                    movie.setPopularity(popularity);
+                                    movie.setId(id);
+
+                                    movies.add(movie);
+
+                                    mNumberItems = results.length();
+
+                                    j++;
+                                }
+                            }
+
+                        }
+
+                        movieAdapter.setMovies(movies);
+                        movieAdapter.notifyDataSetChanged();
                     }
 
-                    movieAdapter.setMovies(movies);
-                    movieAdapter.notifyDataSetChanged();
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
-        }
-    }
+        }}
 
 
-    public Loader<Cursor> onCreateLoader(int id, final Bundle loaderArgs) {
+
+    /*public Loader<Cursor> onCreateLoader(int id, final Bundle loaderArgs) {
 
         return new AsyncTaskLoader<Cursor>(this) {
 
@@ -288,7 +331,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
             }
 
             public Cursor loadInBackground() {
-                // Will implement to load data
+                // Will implement to load data.
 
                 // COMPLETED (5) Query and load all task data in the background; sort by priority
                 // [Hint] use a try/catch block to catch any errors in loading data
@@ -314,7 +357,10 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
             }
         };
 
-    }
+    }}
+
+    */
+
 
     private Cursor getAllFavorites(){
         return mDb.query(
