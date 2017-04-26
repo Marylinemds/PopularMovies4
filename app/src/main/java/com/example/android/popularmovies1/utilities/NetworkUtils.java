@@ -61,6 +61,23 @@ package com.example.android.popularmovies1.utilities;
             return url;
         }
 
+    public static URL buildUrlTopRated() {
+        // COMPLETED (1) Fill in this method to build the proper Github query URL
+        Uri builtUri = Uri.parse(MOVIE_BASE_URL).buildUpon()
+                .appendPath("top_rated")
+                .appendQueryParameter("api_key", APIKey)
+                .build();
+
+        URL url = null;
+        try {
+            url = new URL(builtUri.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        System.out.println(url);
+        return url;
+    }
+
         public static URL buildUrlVideo(String id) {
             // COMPLETED (1) Fill in this method to build the proper Github query URL
             Uri builtUri = Uri.parse(MOVIE_BASE_URL).buildUpon()

@@ -51,12 +51,11 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
     private SQLiteDatabase mDb;
 
     List<Movie> movies = new ArrayList<>();
-    List<Movie> favorites;
 
 
 
-
-    public boolean isFavorite = false;
+    public boolean isFavorite = true;
+    public boolean isTopRated = false;
 
 
     @Override
@@ -120,25 +119,10 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
         if (itemThatWasClickedId == R.id.most_popular) {
 
             movieAdapter.setFavorite(false);
-
-            Movie movie;
-            Movie movie2;
-            for (int i = 0; i < mNumberItems; i++) {
-                for (int j = i + 1; j < mNumberItems - 1; j++) {
-
-                    movie = movies.get(i);
-                    movie2 = movies.get(j);
-                    double movie_d = Double.parseDouble((movie2.getPopularity()));
-                    double movie2_d = Double.parseDouble((movie.getPopularity()));
-
-                    if (Double.compare(movie2_d, movie_d) < 0) {
-                        movies.remove(j);
-                        movies.add(i, movie2);
-                    }
-                }
-            }
-
+            isTopRated = false;
             movieAdapter.notifyDataSetChanged();
+
+
             Context context = MainActivity.this;
             String textToShow = "Sorted by most popular";
             Toast.makeText(context, textToShow, Toast.LENGTH_SHORT).show();
@@ -146,22 +130,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
         } else if (itemThatWasClickedId == R.id.highest_rated) {
 
             movieAdapter.setFavorite(false);
-
-            Movie movie;
-            Movie movie2;
-            for (int i = 0; i < mNumberItems; i++) {
-                for (int j = i + 1; j < mNumberItems - 1; j++) {
-
-                    movie = movies.get(i);
-                    movie2 = movies.get(j);
-
-                    if ((movie2.getUserRating().compareTo(movie.getUserRating()) > 0)) {
-                        movies.remove(j);
-                        movies.add(i, movie2);
-                    }
-                }
-
-            }
+            isTopRated = true;
 
             movieAdapter.notifyDataSetChanged();
             Context context = MainActivity.this;
@@ -171,12 +140,12 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
 
         } else if (itemThatWasClickedId == R.id.favorites) {
 
-            //makeTheQuery();
+
             movieAdapter.setFavorite(true);
+            isTopRated = false;
 
             Context context = MainActivity.this;
 
-            movieAdapter.setMovies(movies);
             movieAdapter.notifyDataSetChanged();
 
             String textToShow = "Here is the favorite list";
@@ -188,7 +157,13 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
 
 
     private void makeTheQuery() {
-        URL SearchUrl = NetworkUtils.buildUrl();
+
+        URL SearchUrl;
+        if (!isTopRated) {
+            SearchUrl = NetworkUtils.buildUrl();
+        }else{
+            SearchUrl = NetworkUtils.buildUrlTopRated();
+        }
         new TheMovieAsyncTask().execute(SearchUrl);
 
     }
@@ -274,7 +249,6 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
                             String id = resultsData.getString("id");
                             String moviePath = resultsData.getString("poster_path").replace("\\Tasks", "");
                             String picSize = "w185";
-
 
 
                                 if (ExistsInDb(id)) {
