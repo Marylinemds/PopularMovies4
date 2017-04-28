@@ -104,6 +104,8 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
         mMoviesList.setAdapter(movieAdapter);
 
 
+
+
         makeTheQuery();
 
     }
@@ -137,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
                 setFavorite(false);
                 setTopRated(false);
                 movieAdapter.notifyDataSetChanged();
-
+                makeTheQuery();
 
                 Context context = MainActivity.this;
                 String textToShow = "Sorted by most popular";
@@ -149,6 +151,9 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
                 setTopRated(true);
 
                 movieAdapter.notifyDataSetChanged();
+                makeTheQuery();
+
+
                 context = MainActivity.this;
                 textToShow = "Sorted by rate";
                 Toast.makeText(context, textToShow, Toast.LENGTH_SHORT).show();
@@ -159,6 +164,9 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
                 setTopRated(false);
 
                 movieAdapter.notifyDataSetChanged();
+
+                makeTheQuery();
+
                 context = MainActivity.this;
                 textToShow = "Here is your favorites list";
                 Toast.makeText(context, textToShow, Toast.LENGTH_SHORT).show();
@@ -173,6 +181,9 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
 
 
     private void makeTheQuery() {
+        movies.clear();
+        isFavorite = isFavorite();
+        isTopRated = isTopRated();
 
         URL SearchUrl;
         if (!isTopRated) {
