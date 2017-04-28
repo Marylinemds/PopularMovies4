@@ -30,7 +30,7 @@ package com.example.android.popularmovies1.utilities;
         final static String MOVIE_BASE_URL =
                 "http://api.themoviedb.org/3/movie/";
 
-        final static String APIKey = "3288276d5ac9532fc0574989eacd03e3";
+        final static String APIKey = "YOUR API KEY";
 
 
         /*
