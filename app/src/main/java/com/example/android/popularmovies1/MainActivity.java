@@ -130,43 +130,43 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
 
 
     public boolean onOptionsItemSelected(MenuItem item) {
-        int itemThatWasClickedId = item.getItemId();
+        int itemId = item.getItemId();
 
 
-        if (itemThatWasClickedId == R.id.most_popular) {
-
-            setFavorite(false);
-            setTopRated(false);
-            movieAdapter.notifyDataSetChanged();
-
-
-            Context context = MainActivity.this;
-            String textToShow = "Sorted by most popular";
-            Toast.makeText(context, textToShow, Toast.LENGTH_SHORT).show();
-
-        } else if (itemThatWasClickedId == R.id.highest_rated) {
-
-            setFavorite(false);
-            setTopRated(true);
-
-            movieAdapter.notifyDataSetChanged();
-            Context context = MainActivity.this;
-            String textToShow = "Sorted by rate";
-            Toast.makeText(context, textToShow, Toast.LENGTH_SHORT).show();
-            return true;
-
-        } else if (itemThatWasClickedId == R.id.favorites) {
+        switch (itemId){
+            case R.id.most_popular:
+                setFavorite(false);
+                setTopRated(false);
+                movieAdapter.notifyDataSetChanged();
 
 
-            setFavorite(true);
-            setTopRated(false);
+                Context context = MainActivity.this;
+                String textToShow = "Sorted by most popular";
+                Toast.makeText(context, textToShow, Toast.LENGTH_SHORT).show();
+                break;
 
-            Context context = MainActivity.this;
+            case R.id.highest_rated:
+                setFavorite(false);
+                setTopRated(true);
 
-            movieAdapter.notifyDataSetChanged();
+                movieAdapter.notifyDataSetChanged();
+                context = MainActivity.this;
+                textToShow = "Sorted by rate";
+                Toast.makeText(context, textToShow, Toast.LENGTH_SHORT).show();
+                break;
 
-            String textToShow = "Here is the favorite list";
-            Toast.makeText(context, textToShow, Toast.LENGTH_SHORT).show();
+            case R.id.favorites:
+                setFavorite(true);
+                setTopRated(false);
+
+                movieAdapter.notifyDataSetChanged();
+                context = MainActivity.this;
+                textToShow = "Sorted by rate";
+                Toast.makeText(context, textToShow, Toast.LENGTH_SHORT).show();
+                break;
+
+            default:
+                Log.w(TAG, "Menu selection is not handled. ItemId;" + itemId);
 
         }
         return super.onOptionsItemSelected(item);
