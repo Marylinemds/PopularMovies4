@@ -27,15 +27,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ImageViewHol
     private Cursor mCursor;
     int count;
 
-    public boolean isFavorite;
-
-    public boolean getFavorite() {
-        return true;
-    }
-
-    public void setFavorite(boolean isFavorite) {
-        this.isFavorite = isFavorite;
-    }
 
     List<Movie> movies;
 
@@ -75,7 +66,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ImageViewHol
 
         Context context = viewHolder.poster.getContext();
 
-        if (!isFavorite) {
 
             Movie movie = movies.get(position);
 
@@ -84,8 +74,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ImageViewHol
             Picasso.with(context).load("http://image.tmdb.org/t/p/" + "w185" + moviePath).into(viewHolder.poster);
 
 
-
-        }
         count = movies.size();
 
     }

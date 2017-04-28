@@ -79,9 +79,6 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        isFavorite = isFavorite();
-        isTopRated = isTopRated();
-
 
         MoviesDbHelper dbHelper = new MoviesDbHelper(this);
 
@@ -106,6 +103,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
 
         mMoviesList.setAdapter(movieAdapter);
 
+        setFavorite(true);
 
         makeTheQuery();
 
@@ -130,9 +128,9 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
         return true;
     }
 
+
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemThatWasClickedId = item.getItemId();
-
 
 
         if (itemThatWasClickedId == R.id.most_popular) {
@@ -184,6 +182,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
             SearchUrl = NetworkUtils.buildUrlTopRated();
         }
         new TheMovieAsyncTask().execute(SearchUrl);
+
 
     }
 
