@@ -8,9 +8,6 @@ package com.example.android.popularmovies1.utilities;
 
     import android.net.Uri;
 
-    import com.example.android.popularmovies1.ChildActivity;
-    import com.example.android.popularmovies1.Movie;
-
     import java.io.IOException;
     import java.io.InputStream;
     import java.net.HttpURLConnection;
@@ -18,7 +15,7 @@ package com.example.android.popularmovies1.utilities;
     import java.net.URL;
     import java.util.Scanner;
 
-    import static android.R.attr.id;
+
 
 /**
      * These utilities will be used to communicate with the network.

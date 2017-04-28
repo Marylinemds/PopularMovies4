@@ -7,8 +7,6 @@ import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
-import android.support.v4.content.AsyncTaskLoader;
-import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -22,7 +20,6 @@ import android.widget.Toast;
 import com.example.android.popularmovies1.data.MoviesContract;
 import com.example.android.popularmovies1.data.MoviesDbHelper;
 import com.example.android.popularmovies1.utilities.NetworkUtils;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,7 +31,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.android.popularmovies1.data.MoviesContract.MovieslistEntry.COLUMN_MOVIE_ID;
-import static com.example.android.popularmovies1.data.MoviesContract.MovieslistEntry.COLUMN_TITLE;
 import static com.example.android.popularmovies1.data.MoviesContract.MovieslistEntry.TABLE_NAME;
 
 
