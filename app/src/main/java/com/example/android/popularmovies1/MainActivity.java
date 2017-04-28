@@ -103,7 +103,6 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
 
         mMoviesList.setAdapter(movieAdapter);
 
-        setFavorite(true);
 
         makeTheQuery();
 
@@ -161,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
 
                 movieAdapter.notifyDataSetChanged();
                 context = MainActivity.this;
-                textToShow = "Sorted by rate";
+                textToShow = "Here is your favorites list";
                 Toast.makeText(context, textToShow, Toast.LENGTH_SHORT).show();
                 break;
 
