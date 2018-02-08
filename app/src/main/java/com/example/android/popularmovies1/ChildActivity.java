@@ -310,8 +310,8 @@ public class ChildActivity extends AppCompatActivity implements VideoAdapter.Lis
 
         }else{
 
-
-            contentResolver.delete(uri,null,null);
+            String[] movieId = new String[]{String.valueOf( movie.getId())};
+            contentResolver.delete(uri, MoviesContract.MovieslistEntry.COLUMN_MOVIE_ID + "=?",movieId);
             ToggleButton.setActivated(false);
             ToggleButton.setChecked(false);
 

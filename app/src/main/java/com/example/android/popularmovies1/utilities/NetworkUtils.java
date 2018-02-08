@@ -25,9 +25,11 @@ package com.example.android.popularmovies1.utilities;
 
 
         final static String MOVIE_BASE_URL =
-                "http://api.themoviedb.org/3/movie/";
+                "http://api.themoviedb.org/4/list/";
 
-        final static String APIKey = "YOUR API KEY";
+        final static String APIKey = "93aea0c77bc168d8bbce3918cefefa45";
+        final static String POPULAR = "vote_average.desc";
+        final static String RECENT = "release_date.desc";
 
 
         /*
@@ -44,7 +46,8 @@ package com.example.android.popularmovies1.utilities;
         public static URL buildUrl() {
             // COMPLETED (1) Fill in this method to build the proper Github query URL
             Uri builtUri = Uri.parse(MOVIE_BASE_URL).buildUpon()
-                    .appendPath("popular")
+                    .appendQueryParameter("sort_by", POPULAR)
+                    .appendPath("1")
                     .appendQueryParameter("api_key", APIKey)
                     .build();
 
@@ -58,10 +61,11 @@ package com.example.android.popularmovies1.utilities;
             return url;
         }
 
-    public static URL buildUrlTopRated() {
+    public static URL buildUrlRecent() {
         // COMPLETED (1) Fill in this method to build the proper Github query URL
         Uri builtUri = Uri.parse(MOVIE_BASE_URL).buildUpon()
-                .appendPath("top_rated")
+                .appendQueryParameter("sort_by", RECENT)
+                .appendPath("1")
                 .appendQueryParameter("api_key", APIKey)
                 .build();
 

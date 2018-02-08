@@ -149,9 +149,8 @@ public class MoviesContentProvider extends ContentProvider {
         switch (match) {
             // Handle the single item case, recognized by the ID included in the URI path
             case FAVORITE_WITH_ID:
-                // Get the task ID from the URI path
-                String id = uri.getPathSegments().get(1);
-                // Use selections/selectionArgs to filter for this ID
+
+                selection = String.format("%s = ?", MoviesContract.MovieslistEntry.COLUMN_MOVIE_ID);
                 favoriteDeleted = db.delete(TABLE_NAME, selection, selectionArgs);
                 break;
             default:

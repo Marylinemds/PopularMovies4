@@ -14,6 +14,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 
@@ -102,7 +104,14 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
 
 
 
-        makeTheQuery();
+        makeTheQueryRecent();
+
+        //ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
+       // if (movies.size() == 0){
+       //     progressBar.setVisibility(View.VISIBLE);
+       // }
+
 
     }
 
@@ -135,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
                 setFavorite(false);
                 setTopRated(false);
                 movieAdapter.notifyDataSetChanged();
-                makeTheQuery();
+                makeTheQueryRecent();
 
                 Context context = MainActivity.this;
                 String textToShow = "Sorted by most popular";
@@ -147,7 +156,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
                 setTopRated(true);
 
                 movieAdapter.notifyDataSetChanged();
-                makeTheQuery();
+                makeTheQueryTopRated();
 
 
                 context = MainActivity.this;
@@ -161,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
 
                 movieAdapter.notifyDataSetChanged();
 
-                makeTheQuery();
+                makeTheQueryFav();
 
                 context = MainActivity.this;
                 textToShow = "Here is your favorites list";
@@ -176,21 +185,36 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
     }
 
 
-    private void makeTheQuery() {
+    private void makeTheQueryTopRated() {
         movies.clear();
-        isFavorite = isFavorite();
-        isTopRated = isTopRated();
 
-        URL SearchUrl;
-        if (!isTopRated) {
-            SearchUrl = NetworkUtils.buildUrl();
-        }else{
-            SearchUrl = NetworkUtils.buildUrlTopRated();
-        }
+        URL SearchUrl = NetworkUtils.buildUrl();
+
         new TheMovieAsyncTask().execute(SearchUrl);
 
+    }
+
+    private void makeTheQueryRecent() {
+        movies.clear();
+
+        URL SearchUrl = NetworkUtils.buildUrlRecent();
+
+        new TheMovieAsyncTask().execute(SearchUrl);
 
     }
+
+    private void makeTheQueryFav() {
+        movies.clear();
+
+            URL SearchUrl = NetworkUtils.buildUrl();
+
+           URL SearchUrl2 = NetworkUtils.buildUrlRecent();
+
+        new TheMovieAsyncTask().execute(SearchUrl);
+        new TheMovieAsyncTask().execute(SearchUrl2);
+
+    }
+
 
 
     public class TheMovieAsyncTask extends AsyncTask<URL, Void, String> {
